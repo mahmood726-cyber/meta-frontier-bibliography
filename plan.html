@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plan | Meta-Frontier Annotated Bibliography</title>
+  <style>
+    :root {
+      --ink: #1d2730;
+      --muted: #55636f;
+      --panel: rgba(255, 255, 255, 0.8);
+      --line: rgba(29, 39, 48, 0.12);
+      --accent: #1d4ed8;
+      --bg: linear-gradient(160deg, #eef6f4, #f9faf7 55%, #eceef8);
+      --shadow: 0 20px 54px rgba(29, 39, 48, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Aptos", "Segoe UI Variable Display", "Trebuchet MS", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 12%, rgba(20, 83, 45, 0.16), transparent 24rem),
+        radial-gradient(circle at 88% 20%, rgba(29, 78, 216, 0.14), transparent 24rem),
+        var(--bg);
+    }
+    .wrap {
+      width: min(1060px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 2rem 0 3rem;
+    }
+    .hero, .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 1.5rem;
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+    }
+    .hero { padding: 2rem; margin-bottom: 1.5rem; }
+    .eyebrow {
+      display: inline-flex;
+      padding: 0.42rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(29, 78, 216, 0.1);
+      color: var(--accent);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 0.9rem 0 0.65rem;
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      line-height: 0.96;
+      max-width: 13ch;
+    }
+    .lede {
+      max-width: 68ch;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 1.03rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1rem;
+    }
+    .panel { padding: 1.25rem; }
+    .span-12 { grid-column: 1 / -1; }
+    .span-6 { grid-column: span 6; }
+    .span-4 { grid-column: span 4; }
+    .span-8 { grid-column: span 8; }
+    h2 { margin: 0 0 0.8rem; }
+    p, li { color: var(--muted); line-height: 1.65; }
+    ul { margin: 0; padding-left: 1.1rem; }
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-top: 0.9rem;
+    }
+    .tag {
+      padding: 0.46rem 0.76rem;
+      border-radius: 999px;
+      background: rgba(29, 39, 48, 0.06);
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    a:hover { text-decoration: underline; }
+    .mini { margin-top: 0.75rem; font-size: 0.88rem; }
+    @media (max-width: 860px) {
+      .span-4, .span-6, .span-8 { grid-column: 1 / -1; }
+      .hero, .panel { padding: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">Project Plan</div>
+      <h1>Meta-Frontier Annotated Bibliography</h1>
+      <p class="lede">
+        This project packages the recent methods scan as a browser-native annotated bibliography:
+        a filterable reading map for frontier meta-analysis methods from 2024 to early 2026.
+      </p>
+      <div class="tag-row">
+        <span class="tag">Standalone HTML app</span>
+        <span class="tag">Curated paper records</span>
+        <span class="tag">Theme filters</span>
+        <span class="tag">WebR integrity checks</span>
+      </div>
+    </section>
+
+    <div class="grid">
+      <section class="panel span-8">
+        <h2>Scope</h2>
+        <ul>
+          <li>Track the most relevant recent methods papers from statistics and methodology journals.</li>
+          <li>Annotate each paper with what is new, why it matters, and how mature it looks.</li>
+          <li>Make the bibliography usable as a reading queue rather than a static citation list.</li>
+        </ul>
+      </section>
+      <section class="panel span-4">
+        <h2>Entry Schema</h2>
+        <ul>
+          <li>ID</li>
+          <li>Theme</li>
+          <li>Journal and year</li>
+          <li>Maturity band</li>
+          <li>Short annotation</li>
+          <li>Source link</li>
+        </ul>
+      </section>
+      <section class="panel span-6">
+        <h2>Planned Themes</h2>
+        <div class="tag-row">
+          <span class="tag">Small-sample inference</span>
+          <span class="tag">Sparse data and rare events</span>
+          <span class="tag">Selective reporting and p-hacking</span>
+          <span class="tag">Bayesian bias adjustment</span>
+          <span class="tag">Transportability</span>
+          <span class="tag">IPD survival NMA</span>
+          <span class="tag">Individualized treatment effects</span>
+          <span class="tag">Distributional robustness</span>
+          <span class="tag">HTA multi-indication</span>
+        </div>
+      </section>
+      <section class="panel span-6">
+        <h2>Core Views</h2>
+        <ul>
+          <li>Headline metrics for papers, years, and themes</li>
+          <li>Filter bar for theme, year, and maturity band</li>
+          <li>Annotated paper cards with direct source links</li>
+          <li>Starter-reading list for fast orientation</li>
+        </ul>
+      </section>
+      <section class="panel span-12">
+        <h2>WebR Validation Plan</h2>
+        <ul>
+          <li>Check total paper count and unique IDs in base R.</li>
+          <li>Check minimum and maximum publication year.</li>
+          <li>Check theme counts.</li>
+          <li>Check the newest-first top paper IDs.</li>
+        </ul>
+        <p class="mini">
+          This validates the integrity of the embedded bibliography dataset and the page ordering logic.
+        </p>
+      </section>
+      <section class="panel span-12">
+        <h2>Build Order</h2>
+        <ul>
+          <li>1. Freeze the bibliography set and write the annotations.</li>
+          <li>2. Build the filter and card UI in a single HTML file.</li>
+          <li>3. Add the starter-reading section.</li>
+          <li>4. Add the WebR integrity panel and script preview.</li>
+          <li>5. Place the project in <code>C:\Projects</code> with <code>index.html</code> and this plan.</li>
+        </ul>
+        <p class="mini">Main app entry: <a href="index.html">index.html</a></p>
+      </section>
+    </div>
+  </div>
+</body>
+</html>

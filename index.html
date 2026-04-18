@@ -1,0 +1,3296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meta-Frontier Annotated Bibliography</title>
+  <style>
+    :root {
+      --ink: #19242e;
+      --muted: #5b6875;
+      --line: rgba(25, 36, 46, 0.12);
+      --panel: rgba(255, 255, 255, 0.8);
+      --bg-a: #edf5f2;
+      --bg-b: #f6f7fb;
+      --blue: #1d4ed8;
+      --green: #14532d;
+      --amber: #b45309;
+      --rose: #be185d;
+      --shadow: 0 26px 64px rgba(25, 36, 46, 0.13);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Aptos", "Segoe UI Variable Display", "Trebuchet MS", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 16%, rgba(20, 83, 45, 0.16), transparent 24rem),
+        radial-gradient(circle at 88% 14%, rgba(29, 78, 216, 0.14), transparent 24rem),
+        linear-gradient(160deg, var(--bg-a), #f9faf8 48%, var(--bg-b));
+      min-height: 100vh;
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 1.4rem 0 2.6rem;
+    }
+
+    .hero, .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 1.45rem;
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 1rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .hero {
+      padding: 2rem;
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 26rem;
+      height: 26rem;
+      border-radius: 50%;
+      right: -8rem;
+      bottom: -10rem;
+      background: radial-gradient(circle, rgba(29, 78, 216, 0.14), transparent 62%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 0.42rem 0.82rem;
+      border-radius: 999px;
+      background: rgba(29, 78, 216, 0.1);
+      color: var(--blue);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0.9rem 0 0.75rem;
+      font-size: clamp(2.2rem, 5vw, 4.2rem);
+      line-height: 0.94;
+      max-width: 12ch;
+    }
+
+    .hero p {
+      max-width: 74ch;
+      margin: 0 0 1rem;
+      line-height: 1.72;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .pill-row,
+    .actions,
+    .controls,
+    .controls-left {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      align-items: center;
+    }
+
+    .pill {
+      padding: 0.45rem 0.76rem;
+      border-radius: 999px;
+      background: rgba(25, 36, 46, 0.06);
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .actions a,
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 0.72rem 1rem;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: rgba(25, 36, 46, 0.08);
+      color: var(--ink);
+    }
+
+    .grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(12, 1fr);
+      margin-top: 1rem;
+    }
+
+    .panel { padding: 1.2rem; }
+    .span-3 { grid-column: span 3; }
+    .span-4 { grid-column: span 4; }
+    .span-5 { grid-column: span 5; }
+    .span-7 { grid-column: span 7; }
+    .span-12 { grid-column: 1 / -1; }
+
+    .metric-value {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 800;
+      line-height: 0.95;
+      margin-bottom: 0.3rem;
+    }
+
+    .metric-label { color: var(--muted); font-size: 0.92rem; }
+
+    h2, h3 { margin: 0 0 0.8rem; line-height: 1.05; }
+
+    .section-note {
+      margin: 0 0 0.9rem;
+      color: var(--muted);
+      line-height: 1.68;
+    }
+
+    .controls { justify-content: space-between; }
+
+    select,
+    input[type="search"] {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 0.72rem 0.95rem;
+      font: inherit;
+    }
+
+    input[type="search"] { min-width: 15rem; }
+    select { min-width: 12rem; }
+
+    .reading-list {
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .launchpad-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .path-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+
+    .mesh-grid,
+    .slider-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .reading-item,
+    .launchpad-card,
+    .paper-card,
+    .validation-shell {
+      border: 1px solid var(--line);
+      border-radius: 1.15rem;
+      background: rgba(255, 255, 255, 0.66);
+    }
+
+    .reading-item {
+      padding: 0.9rem;
+    }
+
+    .launchpad-card {
+      padding: 1rem;
+    }
+
+    .slider-card {
+      border: 1px solid var(--line);
+      border-radius: 1.15rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.66);
+    }
+
+    .slider-card input[type="range"] {
+      width: 100%;
+      margin-top: 0.65rem;
+    }
+
+    .slider-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+
+    .launchpad-metric {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--green);
+      margin-bottom: 0.25rem;
+    }
+
+    .mini-kicker {
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.55rem;
+    }
+
+    .score-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.55rem;
+    }
+
+    .score-box {
+      border-radius: 0.95rem;
+      padding: 0.68rem;
+      background: rgba(25, 36, 46, 0.045);
+    }
+
+    .score-box strong {
+      display: block;
+      font-size: 1.08rem;
+      margin-bottom: 0.12rem;
+    }
+
+    .score-box span {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .paper-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    }
+
+    .paper-card {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .paper-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.34rem 0.62rem;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .tag.theme { background: rgba(29, 78, 216, 0.1); color: var(--blue); }
+    .tag.near { background: rgba(20, 83, 45, 0.1); color: var(--green); }
+    .tag.emerging { background: rgba(180, 83, 9, 0.12); color: var(--amber); }
+    .tag.experimental { background: rgba(190, 24, 93, 0.1); color: var(--rose); }
+
+    .paper-meta {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .paper-card p,
+    .paper-card li {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .paper-card ul {
+      margin: 0;
+      padding-left: 1rem;
+    }
+
+    .paper-detail {
+      border-top: 1px dashed var(--line);
+      padding-top: 0.7rem;
+      display: grid;
+      gap: 0.35rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .paper-detail strong {
+      color: var(--ink);
+    }
+
+    .validation-shell { padding: 1rem; }
+
+    .validation-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 0.8rem;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(25, 36, 46, 0.08);
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .status-badge.ready { background: rgba(20, 83, 45, 0.12); color: var(--green); }
+    .status-badge.error { background: rgba(190, 24, 93, 0.12); color: var(--rose); }
+
+    progress {
+      width: 100%;
+      height: 0.65rem;
+      accent-color: var(--blue);
+    }
+
+    pre {
+      margin: 0;
+      padding: 0.9rem;
+      border-radius: 1rem;
+      background: #f5f7fb;
+      border: 1px solid var(--line);
+      font-size: 0.83rem;
+      white-space: pre-wrap;
+      overflow: auto;
+      max-height: 22rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.94rem;
+    }
+
+    th, td {
+      padding: 0.75rem 0.6rem;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .tiny { font-size: 0.86rem; color: var(--muted); }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    @media (max-width: 980px) {
+      .span-3, .span-4, .span-5, .span-7 { grid-column: 1 / -1; }
+      .hero, .panel { padding: 1rem; }
+      .paper-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar">
+      <div>Annotated reading map for frontier meta-analysis methodology papers</div>
+      <div><a href="plan.html">Open plan</a></div>
+    </div>
+
+    <section class="hero">
+      <div class="eyebrow">2024 to Early 2026</div>
+      <h1>Annotated bibliography of the current meta-analysis frontier</h1>
+      <p>
+        This is a working reading map, not an exhaustive bibliography. The goal is fast orientation:
+        what each paper adds, why it matters, how mature it looks, and which frontier theme it belongs to.
+      </p>
+      <div class="pill-row">
+        <span class="pill">Primary-source links</span>
+        <span class="pill">Theme and maturity filters</span>
+        <span class="pill">Starter reading queue</span>
+        <span class="pill">WebR integrity check</span>
+      </div>
+      <div class="actions" style="margin-top:1rem;">
+        <a class="btn-primary" href="#papers">Jump to papers</a>
+        <a class="btn-secondary" href="#validation">Validate dataset</a>
+      </div>
+    </section>
+
+    <div class="grid">
+      <section class="panel span-3">
+        <div class="metric-value" id="metricPapers">0</div>
+        <div class="metric-label">Papers in the map</div>
+      </section>
+      <section class="panel span-3">
+        <div class="metric-value" id="metricThemes">0</div>
+        <div class="metric-label">Themes covered</div>
+      </section>
+      <section class="panel span-3">
+        <div class="metric-value" id="metricNewest">0</div>
+        <div class="metric-label">Newest publication year</div>
+      </section>
+      <section class="panel span-3">
+        <div class="metric-value" id="metricExperimental">0</div>
+        <div class="metric-label">Experimental / research-stage entries</div>
+      </section>
+
+      <section class="panel span-5">
+        <h2>Read first</h2>
+        <p class="section-note">
+          This panel follows the current objective preset. It now opens in moonshot mode so the highest-upside
+          papers surface first instead of the safest general introductions.
+        </p>
+        <div class="reading-list" id="readingList"></div>
+      </section>
+
+      <section class="panel span-7">
+        <h2>How this bibliography is organized</h2>
+        <p class="section-note">
+          Each record carries a primary theme and a maturity label. The maturity labels are pragmatic:
+          <strong>near-ready</strong> means the method looks close to serious use, <strong>emerging</strong>
+          means promising but still narrow or demanding, and <strong>experimental</strong> means the idea is
+          important but still clearly research-stage for most review teams.
+        </p>
+        <div class="pill-row" id="themePills"></div>
+      </section>
+
+      <section class="panel span-12">
+        <h2>Local Launchpads on C:</h2>
+        <p class="section-note">
+          These local assets are what make the bibliography actionable. They provide real data, benchmark
+          suites, or package scaffolds that can turn a paper in the list below into a publishable study or software module.
+        </p>
+        <div class="launchpad-grid" id="launchpadGrid"></div>
+      </section>
+
+      <section class="panel span-12">
+        <h2>Local Research Mesh</h2>
+        <p class="section-note">
+          This uses a bundled <code>C:\Projects</code> snapshot captured from the local terminal scan to show
+          where local support was strongest at capture time and which recently touched folders were most ready
+          to be folded into the next reading-to-build cycle.
+        </p>
+        <div class="actions" style="margin-bottom:0.8rem;">
+          <button class="btn-secondary" id="loadMeshBtn" type="button">Load live projects folder</button>
+          <button class="btn-secondary" id="exportMeshBtn" type="button">Export mesh snapshot</button>
+          <button class="btn-secondary" id="importMeshBtn" type="button">Import mesh snapshot</button>
+          <button class="btn-secondary" id="resetMeshBtn" type="button">Reset to bundled snapshot</button>
+        </div>
+        <input id="importMeshInput" type="file" accept="application/json,.json" style="display:none;">
+        <div class="tiny" id="meshStatus" style="margin-bottom:0.85rem;">Bundled snapshot status is preparing.</div>
+        <div class="mesh-grid" id="meshGrid"></div>
+        <div class="path-grid" style="margin-top:1rem;">
+          <div class="launchpad-card">
+            <div class="mini-kicker">Recent Project Pulse</div>
+            <div class="reading-list" id="recentProjectList"></div>
+          </div>
+          <div class="launchpad-card">
+            <div class="mini-kicker">Mesh Implications</div>
+            <div class="reading-list" id="meshNarrativeList"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel span-12">
+        <h2>Mesh Impact Lab</h2>
+        <p class="section-note">
+          This compares the active mesh snapshot against the bundled baseline so it is obvious when your live
+          local project bench changes the recommended paper or theme.
+        </p>
+        <div class="path-grid" id="meshImpactGrid"></div>
+        <div class="path-grid" style="margin-top:1rem;">
+          <div class="launchpad-card">
+            <div class="mini-kicker">Paper Movers</div>
+            <div class="reading-list" id="meshImpactPaperList"></div>
+          </div>
+          <div class="launchpad-card">
+            <div class="mini-kicker">Theme Movers</div>
+            <div class="reading-list" id="meshImpactThemeList"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel span-5">
+        <div class="controls" style="align-items:flex-start;">
+          <div class="controls-left">
+            <h2 style="margin:0;">Build Order Lab</h2>
+          </div>
+          <div class="controls-left">
+            <select id="objectiveSelect" aria-label="Objective preset">
+              <option value="balanced">Balanced frontier reading plan</option>
+              <option value="build-now">Build-now paper stack</option>
+              <option value="bias-program">Bias correction program</option>
+              <option value="transport-hta">Transport and HTA program</option>
+              <option value="survival-network">Survival and network program</option>
+              <option value="moonshot" selected>Moonshot methods scouting</option>
+            </select>
+          </div>
+        </div>
+        <p class="section-note" id="objectiveNarrative">
+          Objective-specific build guidance is preparing.
+        </p>
+        <div class="reading-list" id="objectiveSummary"></div>
+      </section>
+
+      <section class="panel span-7">
+        <h2>Current Build Order</h2>
+        <p class="section-note">
+          The bibliography below is no longer just searchable. It now produces a ranked build order tied to the
+          current objective and the local projects already available on <code>C:\</code>.
+        </p>
+        <div class="path-grid">
+          <div class="launchpad-card">
+            <div class="mini-kicker">Papers To Read Or Implement</div>
+            <div class="reading-list" id="buildOrderList"></div>
+          </div>
+          <div class="launchpad-card">
+            <div class="mini-kicker">Theme Coverage</div>
+            <div class="reading-list" id="themeCoverageList"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel span-12">
+        <h2>Modeled Paper Frontier</h2>
+        <p class="section-note">
+          This layer scores every paper across all six objective presets at once. It adds posterior opportunity,
+          uncertainty intervals, top-3 probability, and reading-track assignment so the bibliography behaves like
+          a research planning system rather than only a searchable reading list.
+        </p>
+        <div class="path-grid">
+          <div class="launchpad-card">
+            <div class="mini-kicker">Model Highlights</div>
+            <div class="reading-list" id="paperModelSummary"></div>
+          </div>
+          <div class="launchpad-card">
+            <div class="mini-kicker">Reading Tracks</div>
+            <div class="reading-list" id="paperTrackList"></div>
+          </div>
+        </div>
+        <div style="overflow:auto; margin-top:1rem;">
+          <table>
+            <thead>
+              <tr>
+                <th>Paper</th>
+                <th>Posterior</th>
+                <th>P10 to P90</th>
+                <th>Top-3 prob</th>
+                <th>Frontier</th>
+                <th>Local build</th>
+                <th>Track</th>
+              </tr>
+            </thead>
+            <tbody id="paperModelTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel span-12">
+        <h2>Objective Matrix</h2>
+        <p class="section-note">
+          This matrix shows how each paper scores under every objective preset, making it clear which readings are
+          universal anchors and which are only attractive under one strategic agenda.
+        </p>
+        <div style="overflow:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Paper</th>
+                <th>Balanced</th>
+                <th>Build now</th>
+                <th>Bias program</th>
+                <th>Transport and HTA</th>
+                <th>Survival and network</th>
+                <th>Moonshot</th>
+                <th>Posterior</th>
+                <th>Track</th>
+              </tr>
+            </thead>
+            <tbody id="objectiveMatrixBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel span-12">
+        <h2>Research Assembly Studio</h2>
+        <p class="section-note">
+          This layer turns ranked papers into executable paper bundles, objective-specific sprints, and a theme
+          gap scan so the bibliography can stage a methods program rather than only prioritize reading.
+        </p>
+        <div class="path-grid" id="assemblyInsightGrid"></div>
+        <div class="path-grid" style="margin-top:1rem;">
+          <div class="launchpad-card">
+            <div class="mini-kicker">Paper Bundles</div>
+            <div class="reading-list" id="paperBundleList"></div>
+          </div>
+          <div class="launchpad-card">
+            <div class="mini-kicker">Execution Sprints</div>
+            <div class="reading-list" id="executionSprintList"></div>
+          </div>
+          <div class="launchpad-card">
+            <div class="mini-kicker">Coverage Gap Scan</div>
+            <div class="reading-list" id="coverageGapList"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel span-12">
+        <h2>Custom Objective Tuner</h2>
+        <p class="section-note">
+          The preset objectives are useful defaults. This lab lets you manually rebalance frontier, readiness,
+          local buildability, proof power, posterior traction, and recency to stage a custom paper queue.
+        </p>
+        <div class="slider-grid">
+          <div class="slider-card">
+            <strong>Frontier</strong>
+            <div class="slider-meta"><span>Conceptual upside</span><span id="customFrontierValue">78</span></div>
+            <input id="customFrontierRange" type="range" min="0" max="100" value="78">
+          </div>
+          <div class="slider-card">
+            <strong>Readiness</strong>
+            <div class="slider-meta"><span>Near-term usability</span><span id="customReadinessValue">66</span></div>
+            <input id="customReadinessRange" type="range" min="0" max="100" value="66">
+          </div>
+          <div class="slider-card">
+            <strong>Local build</strong>
+            <div class="slider-meta"><span>C: drive tractability</span><span id="customLocalBuildValue">82</span></div>
+            <input id="customLocalBuildRange" type="range" min="0" max="100" value="82">
+          </div>
+          <div class="slider-card">
+            <strong>Proof power</strong>
+            <div class="slider-meta"><span>Benchmark strength</span><span id="customProofValue">72</span></div>
+            <input id="customProofRange" type="range" min="0" max="100" value="72">
+          </div>
+          <div class="slider-card">
+            <strong>Posterior</strong>
+            <div class="slider-meta"><span>Cross-objective traction</span><span id="customPosteriorValue">80</span></div>
+            <input id="customPosteriorRange" type="range" min="0" max="100" value="80">
+          </div>
+          <div class="slider-card">
+            <strong>Recency</strong>
+            <div class="slider-meta"><span>Newest work</span><span id="customRecencyValue">48</span></div>
+            <input id="customRecencyRange" type="range" min="0" max="100" value="48">
+          </div>
+        </div>
+        <div class="path-grid" id="customObjectiveSummary" style="margin-top:1rem;"></div>
+        <div class="path-grid" style="margin-top:1rem;">
+          <div class="launchpad-card">
+            <div class="mini-kicker">Tuned Paper Queue</div>
+            <div class="reading-list" id="tunedPaperList"></div>
+          </div>
+          <div class="launchpad-card">
+            <div class="mini-kicker">Tuned Theme Queue</div>
+            <div class="reading-list" id="tunedThemeList"></div>
+          </div>
+          <div class="launchpad-card">
+            <div class="mini-kicker">Decision Memo</div>
+            <div class="reading-list" id="tunedMemoList"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel span-12">
+        <h2>Objective Sweep</h2>
+        <p class="section-note">
+          This reruns the paper frontier under several named reading stances so you can see which papers and
+          themes keep winning across balanced, moonshot, fast-build, and proof-maximalist agendas.
+        </p>
+        <div class="path-grid" id="objectiveSweepGrid"></div>
+        <div style="overflow:auto; margin-top:1rem;">
+          <table>
+            <thead>
+              <tr>
+                <th>Stance</th>
+                <th>Top paper</th>
+                <th>Paper score</th>
+                <th>Top theme</th>
+                <th>Theme signal</th>
+              </tr>
+            </thead>
+            <tbody id="objectiveSweepTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel span-12">
+        <div class="controls">
+          <div class="controls-left">
+            <h2 style="margin:0;">Paper Comparator</h2>
+            <span class="tiny">Compare any two papers under the current objective and manual tuning.</span>
+          </div>
+          <div class="controls-left">
+            <select id="comparePaperA" aria-label="Compare paper A"></select>
+            <select id="comparePaperB" aria-label="Compare paper B"></select>
+          </div>
+        </div>
+        <p class="section-note">
+          This exposes the actual trade-off between frontier value, readiness, local buildability, proof power,
+          posterior traction, and the downstream study path implied by each paper.
+        </p>
+        <div class="path-grid" id="compareSummaryGrid"></div>
+        <div class="path-grid" style="margin-top:1rem;">
+          <div class="launchpad-card">
+            <div class="mini-kicker">Paper A Trace</div>
+            <div class="reading-list" id="compareTraceA"></div>
+          </div>
+          <div class="launchpad-card">
+            <div class="mini-kicker">Paper B Trace</div>
+            <div class="reading-list" id="compareTraceB"></div>
+          </div>
+        </div>
+        <div style="overflow:auto; margin-top:1rem;">
+          <table>
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Paper A</th>
+                <th>Paper B</th>
+                <th>Delta</th>
+              </tr>
+            </thead>
+            <tbody id="compareMetricTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel span-12">
+        <h2>Reading Brief Studio</h2>
+        <p class="section-note">
+          This turns the current objective, tuner weights, bundle logic, and local research mesh into a compact
+          markdown brief that can be copied or downloaded for the next research sprint.
+        </p>
+        <div class="actions" style="margin-bottom:0.8rem;">
+          <button class="btn-primary" id="copyBriefBtn" type="button">Copy reading brief</button>
+          <button class="btn-secondary" id="downloadBriefBtn" type="button">Download markdown</button>
+        </div>
+        <div class="tiny" id="briefStatus" style="margin-bottom:0.9rem;">Brief not exported yet.</div>
+        <pre id="briefPreview"></pre>
+      </section>
+
+      <section class="panel span-12" id="papers">
+        <div class="controls">
+          <div class="controls-left">
+            <h2 style="margin:0;">Papers</h2>
+            <span class="tiny">Filter by theme, year, maturity, objective, or keyword.</span>
+          </div>
+          <div class="controls-left">
+            <input id="searchInput" type="search" placeholder="Search title, theme, or note">
+            <select id="themeSelect" aria-label="Filter by theme">
+              <option value="all">All themes</option>
+            </select>
+            <select id="yearSelect" aria-label="Filter by year">
+              <option value="all">All years</option>
+            </select>
+            <select id="maturitySelect" aria-label="Filter by maturity">
+              <option value="all">All maturity bands</option>
+              <option value="near-ready">Near-ready</option>
+              <option value="emerging">Emerging</option>
+              <option value="experimental">Experimental</option>
+            </select>
+            <select id="sortSelect" aria-label="Sort papers">
+              <option value="objective">Sort by current objective fit</option>
+              <option value="posterior">Sort by modeled posterior</option>
+              <option value="opportunity">Sort by overall opportunity</option>
+              <option value="readiness">Sort by readiness</option>
+              <option value="year">Sort by newest</option>
+            </select>
+          </div>
+        </div>
+        <p class="section-note">
+          Annotations are brief on purpose. Cards now include actionable scoring so you can decide what deserves a full read, a benchmark, or immediate implementation.
+        </p>
+        <div class="paper-grid" id="paperGrid"></div>
+      </section>
+
+      <section class="panel span-12" id="validation">
+        <h2>WebR Integrity Check</h2>
+        <p class="section-note">
+          This browser-side R check replays the bibliography dataset in base R and verifies that the page
+          and R agree on counts, year range, theme totals, the tuned paper and theme queue, the objective sweep,
+          and the current comparator winner.
+        </p>
+        <div class="validation-shell">
+          <div class="validation-top">
+            <div><div class="status-badge" id="webrStatus">Not loaded</div></div>
+            <div class="actions" style="margin:0;">
+              <button class="btn-primary" id="runValidationBtn" type="button">Run WebR check</button>
+              <button class="btn-secondary" id="copyScriptBtn" type="button">Copy R script</button>
+            </div>
+          </div>
+          <div id="progressWrap" style="display:none; margin-bottom:0.75rem;">
+            <div class="tiny" id="progressText" style="margin-bottom:0.35rem;">Preparing WebR...</div>
+            <progress id="progressBar" max="100" value="0"></progress>
+          </div>
+          <div id="validationResults" class="tiny" style="margin-bottom:0.9rem;">Validation has not been run yet.</div>
+          <details>
+            <summary style="cursor:pointer; font-weight:700; margin-bottom:0.7rem;">R script preview</summary>
+            <pre id="scriptPreview"></pre>
+          </details>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const papers = [
+      {
+        id: "zejnullahi2024",
+        title: "Robust variance estimation in small meta-analysis with the standardized mean difference",
+        authors: "Zejnullahi and Hedges",
+        journal: "Research Synthesis Methods",
+        year: 2024,
+        theme: "Small-sample inference",
+        maturity: "near-ready",
+        why: "One of the cleanest recent attempts to fix small-k undercoverage in a narrow but important use case.",
+        note: "Best thought of as a practical near-term upgrade when SMD is the target effect measure.",
+        source: "https://pubmed.ncbi.nlm.nih.gov/37717978/"
+      },
+      {
+        id: "hu2024",
+        title: "Sensitivity analysis for publication bias in meta-analysis of sparse data based on exact likelihood",
+        authors: "Hu, Zhou, and Hattori",
+        journal: "Biometrics",
+        year: 2024,
+        theme: "Sparse data and rare events",
+        maturity: "emerging",
+        why: "Extends publication-bias sensitivity analysis into the sparse-data setting where normal approximations behave badly.",
+        note: "Important if you care about low-event binary outcomes and want something more principled than ad hoc continuity corrections.",
+        source: "https://pubmed.ncbi.nlm.nih.gov/39253987/"
+      },
+      {
+        id: "mathur2024",
+        title: "P-hacking in meta-analyses: A formalization and new meta-analytic methods",
+        authors: "Mathur",
+        journal: "Research Synthesis Methods",
+        year: 2024,
+        theme: "Selective reporting and p-hacking",
+        maturity: "emerging",
+        why: "Reframes bias as both between-study and within-study selection, which is a major conceptual shift for bias modeling.",
+        note: "More of a frontier robustness framework than a new universal default estimator.",
+        source: "https://pubmed.ncbi.nlm.nih.gov/38273211/"
+      },
+      {
+        id: "rott2024",
+        title: "Causally interpretable meta-analysis combining aggregate and individual participant data",
+        authors: "Rott, Clark, Murad, Hodges, and Huling",
+        journal: "American Journal of Epidemiology",
+        year: 2024,
+        theme: "Transportability and causal evidence synthesis",
+        maturity: "experimental",
+        why: "Pushes causal meta-analysis toward realistic mixed-data settings by combining aggregate data with synthetic IPD augmentation.",
+        note: "High upside, but still clearly research-stage for most applied teams.",
+        source: "https://pubmed.ncbi.nlm.nih.gov/39307533/"
+      },
+      {
+        id: "hong2025",
+        title: "Estimating target population treatment effects in meta-analysis with individual participant-level data",
+        authors: "Hong, Liu, and Stuart",
+        journal: "Statistical Methods in Medical Research",
+        year: 2025,
+        theme: "Transportability and causal evidence synthesis",
+        maturity: "emerging",
+        why: "A strong bridge between meta-analysis and generalizability theory for decision populations that differ from trial populations.",
+        note: "One of the most strategically important recent papers if meta-analysis is meant to support policy rather than only summarize trials.",
+        source: "https://pubmed.ncbi.nlm.nih.gov/39828917/"
+      },
+      {
+        id: "bartos2025",
+        title: "Robust Bayesian meta-regression: Model-averaged moderation analysis in the presence of publication bias",
+        authors: "Bartos, Maier, Stanley, and Wagenmakers",
+        journal: "Psychological Methods",
+        year: 2025,
+        theme: "Bayesian bias adjustment",
+        maturity: "near-ready",
+        why: "Extends the RoBMA program into moderator analysis while formally accounting for model uncertainty and publication bias.",
+        note: "One of the more actionable frontier methods because it already lands in the RoBMA package ecosystem.",
+        source: "https://pubmed.ncbi.nlm.nih.gov/39964496/"
+      },
+      {
+        id: "hua2025",
+        title: "Network Meta-Analysis With Individual Participant-Level Data of Time-to-Event Outcomes Using Cox Regression",
+        authors: "Hua, Wojdyla, Carnicelli, Granger, Wang, and Hong",
+        journal: "Statistics in Medicine",
+        year: 2025,
+        theme: "IPD survival network meta-analysis",
+        maturity: "emerging",
+        why: "Specialized but important: it systematizes one-stage Cox-based IPD NMA and shows how to think about heterogeneity and effect moderation.",
+        note: "A serious frontier if you work on survival outcomes and have access to individual-level data.",
+        source: "https://pubmed.ncbi.nlm.nih.gov/39964207/"
+      },
+      {
+        id: "chen2025",
+        title: "Adapting methods for correcting selective reporting bias in meta-analysis of dependent effect sizes",
+        authors: "Chen and Pustejovsky",
+        journal: "Psychological Methods",
+        year: 2025,
+        theme: "Dependent effects and multivariate bias correction",
+        maturity: "experimental",
+        why: "Targets a real weakness in current bias diagnostics: most assume one independent estimate per study, which many modern syntheses violate.",
+        note: "Very relevant for education and psychology, but still methodologically demanding.",
+        source: "https://pubmed.ncbi.nlm.nih.gov/40638274/"
+      },
+      {
+        id: "shen2025",
+        title: "Sparse 2-stage Bayesian meta-analysis for individualized treatments",
+        authors: "Shen, Moodie, and Golchi",
+        journal: "Biometrics",
+        year: 2025,
+        theme: "Personalized treatment synthesis",
+        maturity: "experimental",
+        why: "Moves away from pooled average effects toward multi-site learning of individualized treatment rules under partial data sharing.",
+        note: "This is frontier methodology with strong strategic value, not a mainstream evidence-synthesis default.",
+        source: "https://pubmed.ncbi.nlm.nih.gov/40705493/"
+      },
+      {
+        id: "panagiotopoulou2025",
+        title: "Meta-analysis models relaxing the random-effects normality assumption: methodological systematic review and simulation study",
+        authors: "Panagiotopoulou and colleagues",
+        journal: "BMC Medical Research Methodology",
+        year: 2025,
+        theme: "Distributional robustness",
+        maturity: "experimental",
+        why: "Useful because it evaluates the whole family of skewed, mixture, and semi-parametric random-effects models in one place.",
+        note: "Best read as guidance for sensitivity analysis rather than a case to abandon normal random effects by default.",
+        source: "https://link.springer.com/article/10.1186/s12874-025-02658-3"
+      },
+      {
+        id: "yao2025",
+        title: "Random-effects meta-analysis models for pooling rare events data: a comparison between frequentist and bayesian methods",
+        authors: "Yao and colleagues",
+        journal: "BMC Medical Research Methodology",
+        year: 2025,
+        theme: "Sparse data and rare events",
+        maturity: "emerging",
+        why: "Not a brand-new estimator paper, but a useful frontier comparison that clarifies which rare-event models currently look most promising.",
+        note: "Helpful if you want a realistic map of what the rare-events toolbox looks like right now.",
+        source: "https://pubmed.ncbi.nlm.nih.gov/41039305/"
+      },
+      {
+        id: "glynn2026",
+        title: "Methods of multi-indication meta-analysis for health technology assessment: A simulation study",
+        authors: "Glynn and colleagues",
+        journal: "Research Synthesis Methods",
+        year: 2026,
+        theme: "HTA multi-indication borrowing",
+        maturity: "experimental",
+        why: "Represents the decision-analytic frontier where evidence is shared across indications to support HTA rather than kept in silos.",
+        note: "The problem is strategically important, but the methodology still looks context-sensitive and simulation-led.",
+        source: "https://pubmed.ncbi.nlm.nih.gov/41626884/"
+      },
+      {
+        id: "yu2025",
+        title: "Using a two-parameter sensitivity analysis framework to efficiently combine randomized and nonrandomized studies",
+        authors: "Yu and colleagues",
+        journal: "JRSS Series B",
+        year: 2025,
+        theme: "Transportability and causal evidence synthesis",
+        maturity: "experimental",
+        why: "This is one of the clearest recent attempts to combine internal validity and external relevance without pretending observational data are bias-free.",
+        note: "The method is strong, but routine software workflows and reporting standards still need work.",
+        source: "https://academic.oup.com/jrsssb/advance-article-abstract/doi/10.1093/jrsssb/qkaf079/8384135"
+      },
+      {
+        id: "jung2026",
+        title: "Bayesian workflow for bias-adjustment model in meta-analysis",
+        authors: "Jung and Aloe",
+        journal: "Research Synthesis Methods",
+        year: 2026,
+        theme: "Bayesian bias adjustment",
+        maturity: "emerging",
+        why: "Important because it shifts attention from one preferred bias-adjustment model to disciplined workflow, model checking, and prior sensitivity.",
+        note: "A very useful paper if you want bias adjustment to be auditable rather than decorative.",
+        source: "https://pubmed.ncbi.nlm.nih.gov/41635950/"
+      },
+      {
+        id: "rucker2024",
+        title: "Shortest path or random walks? A framework for path weights in network meta-analysis",
+        authors: "Rucker and colleagues",
+        journal: "Statistics in Medicine",
+        year: 2024,
+        theme: "Network meta-analysis structure and evidence flow",
+        maturity: "emerging",
+        why: "Clarifies how evidence contribution is traced through the network and makes path weighting more transparent.",
+        note: "Best read as a trust and diagnostics advance rather than a new universal estimator.",
+        source: "https://pubmed.ncbi.nlm.nih.gov/39044353/"
+      },
+      {
+        id: "cheng2026",
+        title: "Bayesian Network Meta-Analysis With One or Two Continuous Outcomes Measured at Multiple Time Points Using Gaussian Random Walks With Drift",
+        authors: "Cheng, da Costa, and Tomlinson",
+        journal: "Statistics in Medicine",
+        year: 2026,
+        theme: "Longitudinal and repeated-measure NMA",
+        maturity: "experimental",
+        why: "Pushes NMA beyond single-time-point summaries toward richer repeated-measure evidence synthesis.",
+        note: "High-value for longitudinal trial programs, but still specialized and computationally heavier than standard NMA.",
+        source: "https://pubmed.ncbi.nlm.nih.gov/41636579/"
+      }
+    ];
+
+    const starterIds = ["hu2024", "bartos2025", "hong2025", "hua2025", "jung2026"];
+
+    const localLaunchpads = [
+      {
+        title: "experimental-meta-analysis",
+        metric: "299 methods / 12 scenarios / 23 superior methods",
+        note: "Use this as the benchmark engine when a paper implies a new estimator or weighting rule.",
+        asset: "C:\\Projects\\experimental-meta-analysis"
+      },
+      {
+        title: "meta-epidemiology-bias-correction",
+        metric: "57 empirical comparisons / 300 expanded records",
+        note: "Use this when the paper is about publication bias, selection models, PET-PEESE, or correction failure regimes.",
+        asset: "C:\\Projects\\meta-epidemiology-bias-correction"
+      },
+      {
+        title: "IPD-Meta-Pro benchmarks",
+        metric: "Centered, piecewise, RMST, KM, transport, federated tracks",
+        note: "Use this when the paper needs survival, IPD, transportability, or privacy-preserving validation data.",
+        asset: "C:\\HTML apps\\IPD-Meta-Pro\\dev\\benchmarks"
+      },
+      {
+        title: "metaverse-robust-MA",
+        metric: "Robust estimation + moderator selection + causal helpers",
+        note: "Use this when the paper needs contamination models, variable selection, or robust sensitivity machinery.",
+        asset: "C:\\Projects\\metaverse-robust-MA"
+      },
+      {
+        title: "advanced-nma-pooling and repo300-ENMA-SNMA",
+        metric: "NMA / ENMA / longitudinal network infrastructure",
+        note: "Use these when the paper is about network evidence flow, repeated measures, or time-course synthesis.",
+        asset: "C:\\Projects\\advanced-nma-pooling and C:\\Projects\\repo300-ENMA-SNMA"
+      }
+    ];
+
+    const localResearchMesh = [
+      {
+        title: "Meta-analysis core",
+        count: 29,
+        note: "This is the densest local cluster, so benchmark-heavy papers can be staged quickly."
+      },
+      {
+        title: "IPD and survival",
+        count: 9,
+        note: "There is enough IPD, KM, and registry infrastructure to support transport and survival builds."
+      },
+      {
+        title: "Network and HTA",
+        count: 8,
+        note: "This is a credible local bridge for NMA, ENMA, evidence-flow, and HTA-oriented papers."
+      },
+      {
+        title: "Automation and extraction",
+        count: 12,
+        note: "The extraction and automation bench supports scalable literature-to-build workflows."
+      }
+    ];
+
+    const recentProjectPulse = [
+      { name: "MetaExtract", when: "2026-03-27 07:19" },
+      { name: "MLMResearch", when: "2026-03-27 07:19" },
+      { name: "MLM501", when: "2026-03-27 07:19" },
+      { name: "LFA", when: "2026-03-27 07:19" },
+      { name: "KMcurve", when: "2026-03-27 07:19" },
+      { name: "Multipledatameta", when: "2026-03-27 07:16" },
+      { name: "Pairwise70", when: "2026-03-27 07:16" },
+      { name: "Metanew", when: "2026-03-27 07:16" }
+    ];
+
+    const defaultMeshSnapshot = {
+      source: "Bundled snapshot",
+      projectRoot: "C:\\Projects",
+      capturedAt: "2026-03-27 07:19",
+      clusters: localResearchMesh.map(item => ({ ...item })),
+      recentProjects: recentProjectPulse.map(item => ({ ...item }))
+    };
+
+    const bibliographyStateKey = "metaFrontierBibliographyState.v2";
+    const bibliographyMeshKey = "metaFrontierBibliographyMesh.v1";
+    const bibliographyControlIds = [
+      "objectiveSelect",
+      "themeSelect",
+      "yearSelect",
+      "maturitySelect",
+      "sortSelect",
+      "searchInput",
+      "comparePaperA",
+      "comparePaperB",
+      "customFrontierRange",
+      "customReadinessRange",
+      "customLocalBuildRange",
+      "customProofRange",
+      "customPosteriorRange",
+      "customRecencyRange"
+    ];
+
+    const objectiveArchetypes = [
+      { id: "balanced", label: "Balanced translator", raw: { frontier: 70, readiness: 72, local: 78, proof: 74, posterior: 80, recency: 54 } },
+      { id: "moonshot", label: "Moonshot scout", raw: { frontier: 100, readiness: 40, local: 52, proof: 56, posterior: 72, recency: 68 } },
+      { id: "build", label: "Fast build operator", raw: { frontier: 48, readiness: 88, local: 100, proof: 82, posterior: 76, recency: 44 } },
+      { id: "proof", label: "Benchmark maximalist", raw: { frontier: 62, readiness: 74, local: 84, proof: 100, posterior: 88, recency: 36 } },
+      { id: "newest", label: "Newest-first scout", raw: { frontier: 74, readiness: 54, local: 60, proof: 62, posterior: 68, recency: 100 } }
+    ];
+
+    const meshClusterDefinitions = [
+      {
+        title: "Meta-analysis core",
+        note: "This is the densest local cluster, so benchmark-heavy papers can be staged quickly.",
+        pattern: /meta|pairwise|cochrane|dta|bias|metaverse|experimental/i
+      },
+      {
+        title: "IPD and survival",
+        note: "There is enough IPD, KM, and registry infrastructure to support transport and survival builds.",
+        pattern: /ipd|km|survival|registry|hfpef|worldipd/i
+      },
+      {
+        title: "Network and HTA",
+        note: "This is a credible local bridge for NMA, ENMA, evidence-flow, and HTA-oriented papers.",
+        pattern: /nma|hta|surronma|repo300|advanced-nma|enma-snma/i
+      },
+      {
+        title: "Automation and extraction",
+        note: "The extraction and automation bench supports scalable literature-to-build workflows.",
+        pattern: /extract|ctgov|living|watchman|html|engine/i
+      }
+    ];
+
+    const bibliographyThemeClusterMap = {
+      "Small-sample inference": ["Meta-analysis core", "Automation and extraction"],
+      "Sparse data and rare events": ["Meta-analysis core", "Automation and extraction"],
+      "Selective reporting and p-hacking": ["Meta-analysis core", "Automation and extraction"],
+      "Bayesian bias adjustment": ["Meta-analysis core", "Automation and extraction"],
+      "Dependent effects and multivariate bias correction": ["Meta-analysis core", "Automation and extraction"],
+      "Distributional robustness": ["Meta-analysis core"],
+      "Transportability and causal evidence synthesis": ["IPD and survival", "Meta-analysis core"],
+      "IPD survival network meta-analysis": ["IPD and survival", "Network and HTA"],
+      "Personalized treatment synthesis": ["IPD and survival", "Automation and extraction"],
+      "Network meta-analysis structure and evidence flow": ["Network and HTA"],
+      "Longitudinal and repeated-measure NMA": ["Network and HTA", "IPD and survival"],
+      "HTA multi-indication borrowing": ["Network and HTA", "Meta-analysis core"]
+    };
+
+    let activeMeshSnapshot = null;
+
+    function cloneMeshSnapshot(snapshot) {
+      return {
+        ...snapshot,
+        clusters: (snapshot.clusters || []).map(item => ({ ...item })),
+        recentProjects: (snapshot.recentProjects || []).map(item => ({ ...item }))
+      };
+    }
+
+    function defaultMeshSnapshotState() {
+      return cloneMeshSnapshot(defaultMeshSnapshot);
+    }
+
+    function normalizeMeshSnapshot(raw) {
+      if (!raw || !Array.isArray(raw.clusters) || !Array.isArray(raw.recentProjects)) {
+        return defaultMeshSnapshotState();
+      }
+      return {
+        source: raw.source || "Loaded snapshot",
+        projectRoot: raw.projectRoot || "Selected folder",
+        capturedAt: raw.capturedAt || defaultMeshSnapshot.capturedAt,
+        clusters: raw.clusters
+          .filter(item => item && item.title)
+          .map(item => ({
+            title: item.title,
+            count: Number(item.count) || 0,
+            note: item.note || meshClusterDefinitions.find(def => def.title === item.title)?.note || ""
+          })),
+        recentProjects: raw.recentProjects
+          .filter(item => item && item.name)
+          .map(item => ({
+            name: item.name,
+            when: item.when || "Unknown"
+          }))
+      };
+    }
+
+    function readStoredMeshSnapshot() {
+      try {
+        if (typeof localStorage === "undefined") return null;
+        const raw = localStorage.getItem(bibliographyMeshKey);
+        return raw ? normalizeMeshSnapshot(JSON.parse(raw)) : null;
+      } catch {
+        return null;
+      }
+    }
+
+    function writeStoredMeshSnapshot(snapshot) {
+      try {
+        if (typeof localStorage === "undefined") return;
+        localStorage.setItem(bibliographyMeshKey, JSON.stringify(snapshot));
+      } catch {
+        // Ignore storage failures in restricted environments.
+      }
+    }
+
+    function clearStoredMeshSnapshot() {
+      try {
+        if (typeof localStorage === "undefined") return;
+        if (typeof localStorage.removeItem === "function") localStorage.removeItem(bibliographyMeshKey);
+      } catch {
+        // Ignore storage failures in restricted environments.
+      }
+    }
+
+    function getMeshSnapshot() {
+      if (!activeMeshSnapshot) {
+        activeMeshSnapshot = readStoredMeshSnapshot() || defaultMeshSnapshotState();
+      }
+      return activeMeshSnapshot;
+    }
+
+    function setMeshSnapshot(snapshot) {
+      activeMeshSnapshot = normalizeMeshSnapshot(snapshot);
+      writeStoredMeshSnapshot(activeMeshSnapshot);
+      return activeMeshSnapshot;
+    }
+
+    function resetMeshSnapshot() {
+      activeMeshSnapshot = defaultMeshSnapshotState();
+      clearStoredMeshSnapshot();
+      return activeMeshSnapshot;
+    }
+
+    function meshStatusText(snapshot = getMeshSnapshot()) {
+      if (snapshot.source === "Live browser scan") {
+        return `${snapshot.source} of ${snapshot.projectRoot}, captured ${snapshot.capturedAt}. Mesh-sensitive local build scores are currently using this live scan.`;
+      }
+      return `${snapshot.source} for ${snapshot.projectRoot}, captured ${snapshot.capturedAt}. Load a folder in a Chromium browser to replace it with a live scan.`;
+    }
+
+    function exportMeshSnapshot() {
+      if (typeof document === "undefined") return;
+      const snapshot = getMeshSnapshot();
+      const blob = new Blob([JSON.stringify(snapshot, null, 2)], { type: "application/json;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = "meta-frontier-bibliography-mesh-snapshot.json";
+      if (typeof anchor.click === "function") anchor.click();
+      setTimeout(() => URL.revokeObjectURL(url), 0);
+      document.getElementById("meshStatus").textContent = `Mesh snapshot exported from ${snapshot.source}.`;
+    }
+
+    function formatMeshTimestamp(value) {
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return String(value || "Unknown");
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      const hours = String(date.getHours()).padStart(2, "0");
+      const minutes = String(date.getMinutes()).padStart(2, "0");
+      return `${year}-${month}-${day} ${hours}:${minutes}`;
+    }
+
+    async function estimateDirectoryLastTouched(handle, depth = 2, budget = { count: 0, limit: 2400 }) {
+      let latest = 0;
+      try {
+        for await (const entry of handle.values()) {
+          if (budget.count >= budget.limit) break;
+          budget.count += 1;
+          if (entry.kind === "file") {
+            try {
+              const file = await entry.getFile();
+              latest = Math.max(latest, file.lastModified || 0);
+            } catch {}
+          } else if (entry.kind === "directory" && depth > 0 && !entry.name.startsWith(".")) {
+            latest = Math.max(latest, await estimateDirectoryLastTouched(entry, depth - 1, budget));
+          }
+        }
+      } catch {}
+      return latest;
+    }
+
+    async function buildLiveMeshSnapshot(handle, updateStatus = () => {}) {
+      const directories = [];
+      for await (const entry of handle.values()) {
+        if (entry.kind === "directory" && !entry.name.startsWith(".")) directories.push(entry);
+      }
+      updateStatus(`Scanning ${directories.length} project folders...`);
+      const clusters = meshClusterDefinitions.map(definition => ({
+        title: definition.title,
+        count: directories.filter(entry => definition.pattern.test(entry.name)).length,
+        note: definition.note
+      }));
+      const budget = { count: 0, limit: Math.max(1800, directories.length * 36) };
+      const recentBuffer = [];
+      for (let index = 0; index < directories.length; index += 1) {
+        const entry = directories[index];
+        updateStatus(`Scanning ${index + 1}/${directories.length}: ${entry.name}`);
+        const lastTouched = await estimateDirectoryLastTouched(entry, 2, budget);
+        recentBuffer.push({ name: entry.name, lastTouched });
+      }
+      const recentProjects = recentBuffer
+        .filter(item => item.lastTouched > 0)
+        .sort((a, b) => b.lastTouched - a.lastTouched || a.name.localeCompare(b.name))
+        .slice(0, 8)
+        .map(item => ({
+          name: item.name,
+          when: formatMeshTimestamp(item.lastTouched)
+        }));
+      const fallbackRecent = directories
+        .slice(0, 8)
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map(entry => ({
+          name: entry.name,
+          when: "No file timestamp found"
+        }));
+      return {
+        source: "Live browser scan",
+        projectRoot: handle.name || "Selected folder",
+        capturedAt: formatMeshTimestamp(Date.now()),
+        clusters,
+        recentProjects: recentProjects.length ? recentProjects : fallbackRecent
+      };
+    }
+
+    function clusterSupportLookup(snapshot = getMeshSnapshot()) {
+      const maxCount = Math.max(1, ...snapshot.clusters.map(item => Number(item.count) || 0));
+      return Object.fromEntries(
+        snapshot.clusters.map(item => [item.title, +(38 + ((62 * (Number(item.count) || 0)) / maxCount)).toFixed(2)])
+      );
+    }
+
+    function meshSupportForTheme(theme, snapshot = getMeshSnapshot()) {
+      const clusters = bibliographyThemeClusterMap[theme] || ["Meta-analysis core"];
+      const supportLookup = clusterSupportLookup(snapshot);
+      return +(clusters.reduce((sum, title) => sum + (supportLookup[title] || 55), 0) / clusters.length).toFixed(2);
+    }
+
+    const paperBridgeMap = {
+      zejnullahi2024: {
+        localBridge: "experimental-meta-analysis small-sample benchmark stack",
+        nextStudy: "Compare small-k interval corrections against the local 299-method engine and empirical replay datasets."
+      },
+      hu2024: {
+        localBridge: "experimental-meta-analysis plus meta-epidemiology-bias-correction",
+        nextStudy: "Run exact sparse-data bias sensitivity against PET, PEESE, limit MA, and regularized competitors on empirical and simulated sparse-data cases."
+      },
+      mathur2024: {
+        localBridge: "meta-epidemiology-bias-correction expanded 300-comparison dataset",
+        nextStudy: "Quantify when within-study selection models overturn conclusions beyond conventional publication-bias adjustments."
+      },
+      rott2024: {
+        localBridge: "CausalSynth and registry/IPD projects",
+        nextStudy: "Build a protocol-first causal estimand declaration layer for meta-analysis software."
+      },
+      hong2025: {
+        localBridge: "IPD-Meta-Pro transport tracks and registry-oriented projects",
+        nextStudy: "Benchmark pooled versus transported treatment effects under covariate shift using real benchmark datasets."
+      },
+      bartos2025: {
+        localBridge: "meta-epidemiology-bias-correction plus metaverse-robust-MA",
+        nextStudy: "Run a head-to-head RoBMA-regression versus PET-PEESE versus workflow-based Bayesian benchmark on the local empirical dataset."
+      },
+      hua2025: {
+        localBridge: "IPD-Meta-Pro survival benchmarks and advanced-nma-pooling",
+        nextStudy: "Extend local survival benchmark suites to one-stage Cox NMA with treatment-covariate interaction diagnostics."
+      },
+      chen2025: {
+        localBridge: "metaverse-robust-MA dependent-effects utilities",
+        nextStudy: "Stress dependent-effect bias correction under clustered outcomes and naive independence violations."
+      },
+      shen2025: {
+        localBridge: "IPD-Meta-Pro plus WorldIPD projects",
+        nextStudy: "Prototype privacy-aware individualized treatment-rule synthesis on multisite benchmarks."
+      },
+      panagiotopoulou2025: {
+        localBridge: "metaverse-robust-MA contamination models",
+        nextStudy: "Benchmark slash, mixture, and Box-Cox contamination models against normal random effects in local simulations."
+      },
+      yao2025: {
+        localBridge: "experimental-meta-analysis sparse-data scenarios",
+        nextStudy: "Turn the comparison paper into a reproducible rare-events bakeoff using the local framework and Cochrane-linked datasets."
+      },
+      glynn2026: {
+        localBridge: "HTA-oman and advanced-nma-pooling",
+        nextStudy: "Build a decision-loss-oriented simulator for multi-indication borrowing instead of effect-error-only comparisons."
+      },
+      yu2025: {
+        localBridge: "registry_first_rct_meta and meta-epidemiology-bias-correction",
+        nextStudy: "Test sensitivity-parameter integration on real registry-plus-trial case studies and compare with transport-only approaches."
+      },
+      jung2026: {
+        localBridge: "meta-epidemiology-bias-correction and metaverse-robust-MA",
+        nextStudy: "Create a bias-adjustment workflow paper with prior perturbation, predictive diagnostics, and model-space reporting."
+      },
+      rucker2024: {
+        localBridge: "advanced-nma-pooling and repo300-ENMA-SNMA",
+        nextStudy: "Compare shortest-path and random-walk contribution schemes on real and simulated treatment networks."
+      },
+      cheng2026: {
+        localBridge: "advanced-nma-pooling, repo300-ENMA-SNMA, and surroNMA",
+        nextStudy: "Build a repeated-measure NMA benchmark with random walks, drift terms, and time-varying ranking outputs."
+      }
+    };
+
+    const paperScoreMap = {
+      zejnullahi2024: { strategicValue: 74, localTractability: 88, proofPower: 84, frontierSignal: 64 },
+      hu2024: { strategicValue: 86, localTractability: 90, proofPower: 88, frontierSignal: 78 },
+      mathur2024: { strategicValue: 91, localTractability: 84, proofPower: 82, frontierSignal: 86 },
+      rott2024: { strategicValue: 89, localTractability: 72, proofPower: 68, frontierSignal: 90 },
+      hong2025: { strategicValue: 94, localTractability: 81, proofPower: 80, frontierSignal: 87 },
+      bartos2025: { strategicValue: 90, localTractability: 87, proofPower: 86, frontierSignal: 79 },
+      hua2025: { strategicValue: 92, localTractability: 85, proofPower: 83, frontierSignal: 88 },
+      chen2025: { strategicValue: 85, localTractability: 79, proofPower: 74, frontierSignal: 89 },
+      shen2025: { strategicValue: 90, localTractability: 71, proofPower: 67, frontierSignal: 94 },
+      panagiotopoulou2025: { strategicValue: 76, localTractability: 84, proofPower: 79, frontierSignal: 82 },
+      yao2025: { strategicValue: 80, localTractability: 88, proofPower: 85, frontierSignal: 72 },
+      glynn2026: { strategicValue: 87, localTractability: 73, proofPower: 69, frontierSignal: 90 },
+      yu2025: { strategicValue: 93, localTractability: 76, proofPower: 72, frontierSignal: 91 },
+      jung2026: { strategicValue: 84, localTractability: 85, proofPower: 84, frontierSignal: 81 },
+      rucker2024: { strategicValue: 72, localTractability: 82, proofPower: 77, frontierSignal: 73 },
+      cheng2026: { strategicValue: 88, localTractability: 80, proofPower: 74, frontierSignal: 92 }
+    };
+
+    const objectivePresets = [
+      {
+        id: "balanced",
+        name: "Balanced frontier reading plan",
+        description: "Balances readiness, strategic value, and local tractability so the reading list stays publishable rather than merely fashionable.",
+        focusThemes: [],
+        weights: { opportunity: 0.40, readiness: 0.16, strategicValue: 0.18, localTractability: 0.14, proofPower: 0.12 }
+      },
+      {
+        id: "build-now",
+        name: "Build-now paper stack",
+        description: "Prioritizes papers that can be converted into code, benchmarks, or manuscripts quickly with the local assets already available.",
+        focusThemes: ["Small-sample inference", "Sparse data and rare events", "Bayesian bias adjustment"],
+        weights: { readiness: 0.24, localTractability: 0.24, proofPower: 0.18, opportunity: 0.18, focus: 0.10, recency: 0.06 }
+      },
+      {
+        id: "bias-program",
+        name: "Bias correction program",
+        description: "Use this when the objective is to build a coherent publication-bias and sparse-data research program rather than a general reading list.",
+        focusThemes: ["Selective reporting and p-hacking", "Bayesian bias adjustment", "Sparse data and rare events", "Dependent effects and multivariate bias correction", "Small-sample inference"],
+        weights: { strategicValue: 0.22, proofPower: 0.18, localTractability: 0.16, frontierSignal: 0.12, opportunity: 0.20, focus: 0.12 }
+      },
+      {
+        id: "transport-hta",
+        name: "Transport and HTA program",
+        description: "This preset rewards papers that move the field toward target-population estimands, mixed evidence synthesis, and payer-facing decision workflows.",
+        focusThemes: ["Transportability and causal evidence synthesis", "HTA multi-indication borrowing"],
+        weights: { strategicValue: 0.26, localTractability: 0.16, proofPower: 0.14, frontierSignal: 0.12, opportunity: 0.18, focus: 0.14 }
+      },
+      {
+        id: "survival-network",
+        name: "Survival and network program",
+        description: "Use this when the goal is to exploit the strong local benchmark base in IPD, time-to-event, network structure, and repeated-measure synthesis.",
+        focusThemes: ["IPD survival network meta-analysis", "Network meta-analysis structure and evidence flow", "Longitudinal and repeated-measure NMA", "Personalized treatment synthesis"],
+        weights: { strategicValue: 0.20, localTractability: 0.18, proofPower: 0.16, frontierSignal: 0.14, opportunity: 0.18, focus: 0.14 }
+      },
+      {
+        id: "moonshot",
+        name: "Moonshot methods scouting",
+        description: "This preset accepts lower readiness in exchange for concepts that could materially reset the field if they can be made operational.",
+        focusThemes: ["Personalized treatment synthesis", "HTA multi-indication borrowing", "Transportability and causal evidence synthesis", "Longitudinal and repeated-measure NMA"],
+        weights: { frontierSignal: 0.24, strategicValue: 0.20, opportunity: 0.18, localTractability: 0.12, recency: 0.10, focus: 0.16 }
+      }
+    ];
+
+    function uniqueValues(items, key) {
+      return [...new Set(items.map(item => item[key]))];
+    }
+
+    function titleCaseMaturity(value) {
+      if (value === "near-ready") return "Near-ready";
+      if (value === "emerging") return "Emerging";
+      return "Experimental";
+    }
+
+    function maturityClass(value) {
+      if (value === "near-ready") return "near";
+      if (value === "emerging") return "emerging";
+      return "experimental";
+    }
+
+    function weightedTotal(values, weights) {
+      return +Object.entries(weights)
+        .reduce((sum, [key, weight]) => sum + ((values[key] ?? 0) * weight), 0)
+        .toFixed(2);
+    }
+
+    function getObjectivePreset() {
+      const selected = document.getElementById("objectiveSelect")?.value || "moonshot";
+      return objectivePresets.find(item => item.id === selected) || objectivePresets[0];
+    }
+
+    function yearSignal(year) {
+      return 60 + ((year - 2024) * 10);
+    }
+
+    function baseReadiness(paper) {
+      if (paper.maturity === "near-ready") return Math.min(94, 84 + Math.max(0, (paper.year - 2024) * 2));
+      if (paper.maturity === "emerging") return Math.min(88, 72 + Math.max(0, (paper.year - 2024) * 2));
+      return Math.min(82, 58 + Math.max(0, (paper.year - 2024) * 2));
+    }
+
+    function focusScore(theme, focusThemes) {
+      if (!focusThemes.length) return 75;
+      return focusThemes.includes(theme) ? 100 : 55;
+    }
+
+    function createSeededRng(seed = 20260327) {
+      let state = seed >>> 0;
+      return function next() {
+        state = (1664525 * state + 1013904223) >>> 0;
+        return state / 4294967296;
+      };
+    }
+
+    function jitterWeights(weights, rng, amplitude = 0.28) {
+      const perturbed = Object.entries(weights).map(([key, value]) => [key, Math.max(0.0001, value * (1 + (((rng() * 2) - 1) * amplitude)))]);
+      const total = perturbed.reduce((sum, [, value]) => sum + value, 0);
+      return Object.fromEntries(perturbed.map(([key, value]) => [key, value / total]));
+    }
+
+    function quantile(values, p) {
+      const ordered = [...values].sort((a, b) => a - b);
+      if (!ordered.length) return 0;
+      const index = (ordered.length - 1) * p;
+      const lower = Math.floor(index);
+      const upper = Math.ceil(index);
+      if (lower === upper) return +ordered[lower].toFixed(2);
+      return +(ordered[lower] + ((ordered[upper] - ordered[lower]) * (index - lower))).toFixed(2);
+    }
+
+    function combinations(items, size) {
+      const results = [];
+      function walk(start, combo) {
+        if (combo.length === size) {
+          results.push(combo);
+          return;
+        }
+        for (let index = start; index <= items.length - (size - combo.length); index += 1) {
+          walk(index + 1, [...combo, items[index]]);
+        }
+      }
+      walk(0, []);
+      return results;
+    }
+
+    function dominatesPaper(a, b) {
+      const weaklyBetter =
+        a.posteriorOpportunity >= b.posteriorOpportunity &&
+        a.frontierSignal >= b.frontierSignal &&
+        a.localCalibration >= b.localCalibration &&
+        a.readiness >= b.readiness &&
+        a.executionRisk <= b.executionRisk;
+      const strictlyBetter =
+        a.posteriorOpportunity > b.posteriorOpportunity ||
+        a.frontierSignal > b.frontierSignal ||
+        a.localCalibration > b.localCalibration ||
+        a.readiness > b.readiness ||
+        a.executionRisk < b.executionRisk;
+      return weaklyBetter && strictlyBetter;
+    }
+
+    function scorePaper(paper) {
+      const bridge = paperBridgeMap[paper.id] || {};
+      const score = paperScoreMap[paper.id] || {};
+      const readiness = baseReadiness(paper);
+      const strategicValue = score.strategicValue ?? 75;
+      const localTractability = score.localTractability ?? 70;
+      const proofPower = score.proofPower ?? 70;
+      const frontierSignal = score.frontierSignal ?? 75;
+      const recency = yearSignal(paper.year);
+      const opportunity = +(0.32 * readiness + 0.28 * strategicValue + 0.22 * localTractability + 0.18 * proofPower).toFixed(2);
+      return {
+        ...paper,
+        ...bridge,
+        readiness,
+        strategicValue,
+        localTractability,
+        proofPower,
+        frontierSignal,
+        recency,
+        opportunity
+      };
+    }
+
+    const scoredPapers = papers.map(scorePaper);
+
+    function objectiveValues(item, preset) {
+      return {
+        opportunity: item.opportunity,
+        readiness: item.readiness,
+        strategicValue: item.strategicValue,
+        localTractability: item.localTractability,
+        proofPower: item.proofPower,
+        frontierSignal: item.frontierSignal,
+        recency: item.recency,
+        focus: focusScore(item.theme, preset.focusThemes)
+      };
+    }
+
+    function currentObjectivePapers(preset = getObjectivePreset()) {
+      return scoredPapers.map(item => ({ ...item, objectiveFit: weightedTotal(objectiveValues(item, preset), preset.weights) }));
+    }
+
+    function buildModeledPapers() {
+      const objectiveRuns = objectivePresets.map(preset => ({
+        preset,
+        ordered: scoredPapers
+          .map(item => ({ ...item, objectiveFit: weightedTotal(objectiveValues(item, preset), preset.weights) }))
+          .sort((a, b) => b.objectiveFit - a.objectiveFit || b.opportunity - a.opportunity || a.id.localeCompare(b.id))
+      }));
+      const rankMaps = objectiveRuns.map(run => Object.fromEntries(run.ordered.map((item, index) => [item.id, index + 1])));
+      const baseItems = scoredPapers.map(item => {
+        const objectiveScores = objectivePresets.map(preset => weightedTotal(objectiveValues(item, preset), preset.weights));
+        const meanObjectiveFit = +(objectiveScores.reduce((sum, value) => sum + value, 0) / objectiveScores.length).toFixed(2);
+        const worstObjectiveFit = +Math.min(...objectiveScores).toFixed(2);
+        const bestObjectiveFit = +Math.max(...objectiveScores).toFixed(2);
+        const variance = objectiveScores.reduce((sum, value) => sum + Math.pow(value - meanObjectiveFit, 2), 0) / objectiveScores.length;
+        const stability = +(100 - Math.min(35, Math.sqrt(variance) * 4.3)).toFixed(2);
+        const top3Count = rankMaps.reduce((sum, map) => sum + ((map[item.id] || 99) <= 3 ? 1 : 0), 0);
+        const dominance = +((top3Count / objectivePresets.length) * 100).toFixed(2);
+        const localCalibration = +(0.42 * item.localTractability + 0.33 * item.proofPower + 0.25 * item.readiness).toFixed(2);
+        const executionRisk = +(100 - (0.52 * item.localTractability + 0.26 * item.proofPower + 0.22 * item.readiness)).toFixed(2);
+        return {
+          ...item,
+          objectiveScores,
+          meanObjectiveFit,
+          worstObjectiveFit,
+          bestObjectiveFit,
+          stability,
+          dominance,
+          localCalibration,
+          executionRisk
+        };
+      });
+
+      const rng = createSeededRng(20260329);
+      const drawCount = 500;
+      const posteriorDraws = Object.fromEntries(baseItems.map(item => [item.id, []]));
+      const top3Counts = Object.fromEntries(baseItems.map(item => [item.id, 0]));
+
+      for (let draw = 0; draw < drawCount; draw += 1) {
+        const drawWeights = objectivePresets.map(preset => ({ preset, weights: jitterWeights(preset.weights, rng) }));
+        const drawRows = baseItems.map(item => {
+          const drawScores = drawWeights.map(({ preset, weights }) => weightedTotal(objectiveValues(item, preset), weights));
+          const drawMean = drawScores.reduce((sum, value) => sum + value, 0) / drawScores.length;
+          const drawWorst = Math.min(...drawScores);
+          const drawVariance = drawScores.reduce((sum, value) => sum + Math.pow(value - drawMean, 2), 0) / drawScores.length;
+          const drawStability = 100 - Math.min(38, Math.sqrt(drawVariance) * 4.1);
+          const evidenceNoise = (((rng() * 2) - 1) * 2.0);
+          const localNoise = (((rng() * 2) - 1) * 1.8);
+          const posteriorOpportunity = +(0.30 * drawMean + 0.18 * drawWorst + 0.18 * drawStability + 0.16 * (item.localCalibration + localNoise) + 0.18 * (item.strategicValue + evidenceNoise)).toFixed(2);
+          return { id: item.id, posteriorOpportunity };
+        }).sort((a, b) => b.posteriorOpportunity - a.posteriorOpportunity || a.id.localeCompare(b.id));
+
+        drawRows.forEach((row, index) => {
+          posteriorDraws[row.id].push(row.posteriorOpportunity);
+          if (index < 3) top3Counts[row.id] += 1;
+        });
+      }
+
+      const withPosterior = baseItems.map(item => {
+        const draws = posteriorDraws[item.id];
+        const posteriorOpportunity = +(draws.reduce((sum, value) => sum + value, 0) / draws.length).toFixed(2);
+        const posteriorLow = quantile(draws, 0.1);
+        const posteriorHigh = quantile(draws, 0.9);
+        const top3Probability = +((top3Counts[item.id] / drawCount) * 100).toFixed(2);
+        return { ...item, posteriorOpportunity, posteriorLow, posteriorHigh, top3Probability };
+      });
+
+      const paretoIds = new Set(
+        withPosterior
+          .filter(candidate => !withPosterior.some(other => other.id !== candidate.id && dominatesPaper(other, candidate)))
+          .map(item => item.id)
+      );
+
+      return withPosterior
+        .map(item => {
+          const paretoEfficient = paretoIds.has(item.id);
+          let track = "Support";
+          if (item.posteriorOpportunity >= 80 && item.top3Probability >= 60 && item.executionRisk <= 34) track = "Robust core";
+          else if (paretoEfficient && item.frontierSignal >= 88 && item.posteriorOpportunity >= 73) track = "Tractable moonshot";
+          else if (item.frontierSignal >= 88 && (item.posteriorOpportunity < 73 || item.executionRisk > 38)) track = "Fragile moonshot";
+          else if (item.posteriorOpportunity >= 77 && item.top3Probability >= 20) track = "Promising";
+          return { ...item, paretoEfficient, track };
+        })
+        .sort((a, b) => b.posteriorOpportunity - a.posteriorOpportunity || b.top3Probability - a.top3Probability || a.id.localeCompare(b.id));
+    }
+
+    const modeledPapers = buildModeledPapers();
+    const modeledPaperLookup = Object.fromEntries(modeledPapers.map(item => [item.id, item]));
+
+    function currentObjectiveModeledPapers(preset = getObjectivePreset()) {
+      return [...currentObjectiveOrderedPapers(preset)].map(item => ({ ...item, ...modeledPaperLookup[item.id] }));
+    }
+
+    function buildPaperBundles(preset = getObjectivePreset()) {
+      const snapshot = getMeshSnapshot();
+      const candidates = currentObjectiveModeledPapers(preset)
+        .map(item => {
+          const meshSupport = meshSupportForTheme(item.theme, snapshot);
+          const effectiveLocal = +(0.76 * item.localTractability + 0.24 * meshSupport).toFixed(2);
+          return { ...item, meshSupport, effectiveLocal };
+        })
+        .sort((a, b) =>
+          ((0.55 * b.objectiveFit) + (0.45 * b.posteriorOpportunity)) -
+          ((0.55 * a.objectiveFit) + (0.45 * a.posteriorOpportunity)) ||
+          b.frontierSignal - a.frontierSignal ||
+          a.id.localeCompare(b.id)
+        )
+        .slice(0, 8);
+
+      return combinations(candidates, 3)
+        .map(bundle => {
+          const meanObjective = +(bundle.reduce((sum, item) => sum + item.objectiveFit, 0) / bundle.length).toFixed(2);
+          const meanPosterior = +(bundle.reduce((sum, item) => sum + item.posteriorOpportunity, 0) / bundle.length).toFixed(2);
+          const meanFrontier = +(bundle.reduce((sum, item) => sum + item.frontierSignal, 0) / bundle.length).toFixed(2);
+          const meanLocal = +(bundle.reduce((sum, item) => sum + item.effectiveLocal, 0) / bundle.length).toFixed(2);
+          const meanReadiness = +(bundle.reduce((sum, item) => sum + item.readiness, 0) / bundle.length).toFixed(2);
+          const themeCount = new Set(bundle.map(item => item.theme)).size;
+          const trackCount = new Set(bundle.map(item => item.track)).size;
+          const anchorCount = bundle.filter(item => ["Robust core", "Promising", "Support"].includes(item.track)).length;
+          const moonshotCount = bundle.filter(item => item.track.toLowerCase().includes("moonshot")).length;
+          const diversitySignal = Math.min(100, 56 + (themeCount * 12) + (trackCount * 8));
+          const bundleScore = +(0.28 * meanObjective + 0.24 * meanPosterior + 0.16 * meanFrontier + 0.14 * meanLocal + 0.10 * diversitySignal + 0.08 * meanReadiness).toFixed(2);
+          let label = "Balanced translation bundle";
+          if (anchorCount >= 2 && moonshotCount >= 1) label = "Anchor plus moonshot bundle";
+          else if (meanLocal >= 84 && meanReadiness >= 82) label = "Fast prototype bundle";
+          else if (meanFrontier >= 88) label = "Field-reset bundle";
+          const moonshotLead = bundle.find(item => item.track.toLowerCase().includes("moonshot"));
+          const nextClaim = moonshotLead
+            ? `Anchor the bundle on ${moonshotLead.title} but hedge it with two papers that can be implemented locally now.`
+            : `A defensible bundle for an objective-led methods build under ${preset.name}.`;
+          return {
+            label,
+            bundle,
+            names: bundle.map(item => item.title).join(" + "),
+            meanObjective,
+            meanPosterior,
+            meanFrontier,
+            meanLocal,
+            meanReadiness,
+            diversitySignal,
+            bundleScore,
+            nextClaim
+          };
+        })
+        .sort((a, b) => b.bundleScore - a.bundleScore || b.meanPosterior - a.meanPosterior || b.meanFrontier - a.meanFrontier)
+        .slice(0, 5);
+    }
+
+    function buildExecutionSprints(items = currentObjectiveModeledPapers()) {
+      const localValue = item => item.effectiveLocal ?? item.localTractability;
+      const fastest = [...items].sort((a, b) => localValue(b) - localValue(a) || b.readiness - a.readiness || a.id.localeCompare(b.id))[0];
+      const topPosterior = [...items].sort((a, b) => b.posteriorOpportunity - a.posteriorOpportunity || b.top3Probability - a.top3Probability || a.id.localeCompare(b.id))[0];
+      const proofAnchor = items.find(item => item.id !== topPosterior.id && item.proofPower >= 82) || fastest;
+      const moonshot = items.find(item => item.track.toLowerCase().includes("moonshot")) || [...items].sort((a, b) => b.frontierSignal - a.frontierSignal || b.posteriorOpportunity - a.posteriorOpportunity || a.id.localeCompare(b.id))[0];
+      const stabilizer = items.find(item => item.id !== moonshot.id && localValue(item) >= 82) || topPosterior;
+      const buildAnchor = items.find(item => item.id !== fastest.id && item.track === "Robust core") || topPosterior;
+      return [
+        {
+          title: "Fast prototype sprint",
+          lead: fastest,
+          support: buildAnchor,
+          metric: `Local ${localValue(fastest)} | Ready ${fastest.readiness}`,
+          output: fastest.localBridge || fastest.nextStudy
+        },
+        {
+          title: "Defensible benchmark sprint",
+          lead: topPosterior,
+          support: proofAnchor,
+          metric: `Posterior ${topPosterior.posteriorOpportunity} | Proof ${topPosterior.proofPower}`,
+          output: topPosterior.nextStudy
+        },
+        {
+          title: "Moonshot feasibility sprint",
+          lead: moonshot,
+          support: stabilizer,
+          metric: `Frontier ${moonshot.frontierSignal} | Track ${moonshot.track}`,
+          output: moonshot.nextStudy
+        }
+      ];
+    }
+
+    function buildCoverageGapScan(items = currentObjectiveModeledPapers()) {
+      const localValue = item => item.effectiveLocal ?? item.localTractability;
+      const themeGroups = new Map();
+      items.forEach(item => {
+        if (!themeGroups.has(item.theme)) {
+          themeGroups.set(item.theme, { theme: item.theme, items: [] });
+        }
+        themeGroups.get(item.theme).items.push(item);
+      });
+
+      return [...themeGroups.values()]
+        .map(entry => {
+          const count = entry.items.length;
+          const avgObjective = +(entry.items.reduce((sum, item) => sum + item.objectiveFit, 0) / count).toFixed(2);
+          const avgPosterior = +(entry.items.reduce((sum, item) => sum + item.posteriorOpportunity, 0) / count).toFixed(2);
+          const avgFrontier = +(entry.items.reduce((sum, item) => sum + item.frontierSignal, 0) / count).toFixed(2);
+          const avgLocal = +(entry.items.reduce((sum, item) => sum + localValue(item), 0) / count).toFixed(2);
+          const avgReadiness = +(entry.items.reduce((sum, item) => sum + item.readiness, 0) / count).toFixed(2);
+          const scarcity = Math.max(40, 100 - (count * 18));
+          const gapPressure = +(0.30 * avgFrontier + 0.24 * avgObjective + 0.18 * (100 - avgLocal) + 0.16 * scarcity + 0.12 * (100 - avgReadiness)).toFixed(2);
+          const lead = [...entry.items].sort((a, b) => b.frontierSignal - a.frontierSignal || b.posteriorOpportunity - a.posteriorOpportunity || a.id.localeCompare(b.id))[0];
+          let action = `Push ${lead.title} into a full benchmark or implementation plan.`;
+          if (avgLocal < 78) action = `Bridge through ${lead.localBridge || lead.title} before widening scope.`;
+          else if (avgFrontier >= 88) action = `Run a feasibility benchmark around ${lead.title} before committing to a full paper.`;
+          return {
+            theme: entry.theme,
+            count,
+            avgObjective,
+            avgPosterior,
+            avgFrontier,
+            avgLocal,
+            avgReadiness,
+            gapPressure,
+            lead,
+            action
+          };
+        })
+        .sort((a, b) => b.gapPressure - a.gapPressure || b.avgFrontier - a.avgFrontier || a.theme.localeCompare(b.theme))
+        .slice(0, 5);
+    }
+
+    function getCustomObjectiveWeights() {
+      const raw = {
+        frontier: Number(document.getElementById("customFrontierRange")?.value || 78),
+        readiness: Number(document.getElementById("customReadinessRange")?.value || 66),
+        local: Number(document.getElementById("customLocalBuildRange")?.value || 82),
+        proof: Number(document.getElementById("customProofRange")?.value || 72),
+        posterior: Number(document.getElementById("customPosteriorRange")?.value || 80),
+        recency: Number(document.getElementById("customRecencyRange")?.value || 48)
+      };
+      const total = Object.values(raw).reduce((sum, value) => sum + value, 0) || 1;
+      return {
+        raw,
+        normalized: Object.fromEntries(Object.entries(raw).map(([key, value]) => [key, value / total]))
+      };
+    }
+
+    function buildCustomThemeSummaries(items) {
+      const bucket = new Map();
+      items.forEach(item => {
+        if (!bucket.has(item.theme)) {
+          bucket.set(item.theme, {
+            theme: item.theme,
+            count: 0,
+            totalFit: 0,
+            totalTuned: 0,
+            totalPosterior: 0,
+            totalEffectiveLocal: 0,
+            best: item
+          });
+        }
+        const entry = bucket.get(item.theme);
+        entry.count += 1;
+        entry.totalFit += item.objectiveFit;
+        entry.totalTuned += item.tunedScore;
+        entry.totalPosterior += item.posteriorOpportunity;
+        entry.totalEffectiveLocal += item.effectiveLocal;
+        if (
+          item.tunedScore > entry.best.tunedScore ||
+          (item.tunedScore === entry.best.tunedScore && item.posteriorOpportunity > entry.best.posteriorOpportunity) ||
+          (item.tunedScore === entry.best.tunedScore && item.posteriorOpportunity === entry.best.posteriorOpportunity && item.id.localeCompare(entry.best.id) < 0)
+        ) {
+          entry.best = item;
+        }
+      });
+      return [...bucket.values()].map(entry => ({
+        theme: entry.theme,
+        count: entry.count,
+        avgFit: +(entry.totalFit / entry.count).toFixed(2),
+        avgTuned: +(entry.totalTuned / entry.count).toFixed(2),
+        avgPosterior: +(entry.totalPosterior / entry.count).toFixed(2),
+        avgEffectiveLocal: +(entry.totalEffectiveLocal / entry.count).toFixed(2),
+        best: entry.best
+      }));
+    }
+
+    function buildCustomObjectiveRankingFromRaw(raw, preset = getObjectivePreset(), snapshot = getMeshSnapshot()) {
+      const total = Object.values(raw).reduce((sum, value) => sum + value, 0) || 1;
+      const normalized = Object.fromEntries(Object.entries(raw).map(([key, value]) => [key, value / total]));
+      const papers = currentObjectiveModeledPapers(preset)
+        .map(item => {
+          const meshSupport = meshSupportForTheme(item.theme, snapshot);
+          const effectiveLocal = +(0.76 * item.localTractability + 0.24 * meshSupport).toFixed(2);
+          const tunedScore = +(
+            normalized.frontier * item.frontierSignal +
+            normalized.readiness * item.readiness +
+            normalized.local * effectiveLocal +
+            normalized.proof * item.proofPower +
+            normalized.posterior * item.posteriorOpportunity +
+            normalized.recency * item.recency
+          ).toFixed(2);
+          return { ...item, meshSupport, effectiveLocal, tunedScore };
+        })
+        .sort((a, b) => b.tunedScore - a.tunedScore || b.posteriorOpportunity - a.posteriorOpportunity || a.id.localeCompare(b.id));
+      const themes = buildCustomThemeSummaries(papers)
+        .map(entry => ({
+          ...entry,
+          tunedSignal: +(0.46 * entry.avgTuned + 0.18 * entry.best.posteriorOpportunity + 0.14 * entry.best.frontierSignal + 0.12 * entry.best.effectiveLocal + 0.10 * entry.avgEffectiveLocal).toFixed(2)
+        }))
+        .sort((a, b) => b.tunedSignal - a.tunedSignal || b.avgTuned - a.avgTuned || a.theme.localeCompare(b.theme));
+      return { raw, normalized, papers, themes };
+    }
+
+    function buildCustomObjectiveRanking(preset = getObjectivePreset()) {
+      return buildCustomObjectiveRankingFromRaw(getCustomObjectiveWeights().raw, preset);
+    }
+
+    function buildMeshImpactSnapshot(preset = getObjectivePreset()) {
+      const raw = getCustomObjectiveWeights().raw;
+      const baselineSnapshot = defaultMeshSnapshotState();
+      const activeSnapshot = getMeshSnapshot();
+      const baseline = buildCustomObjectiveRankingFromRaw(raw, preset, baselineSnapshot);
+      const active = buildCustomObjectiveRankingFromRaw(raw, preset, activeSnapshot);
+      const baselinePaperRank = Object.fromEntries(baseline.papers.map((item, index) => [item.id, index + 1]));
+      const baselinePaperLookup = Object.fromEntries(baseline.papers.map(item => [item.id, item]));
+      const baselineThemeRank = Object.fromEntries(baseline.themes.map((item, index) => [item.theme, index + 1]));
+      const baselineThemeLookup = Object.fromEntries(baseline.themes.map(item => [item.theme, item]));
+      const paperMovers = active.papers.map((item, index) => ({
+        ...item,
+        rankCurrent: index + 1,
+        rankBaseline: baselinePaperRank[item.id] || index + 1,
+        rankShift: (baselinePaperRank[item.id] || index + 1) - (index + 1),
+        localShift: +(item.effectiveLocal - (baselinePaperLookup[item.id]?.effectiveLocal || item.effectiveLocal)).toFixed(2)
+      }))
+        .sort((a, b) => Math.abs(b.rankShift) - Math.abs(a.rankShift) || Math.abs(b.localShift) - Math.abs(a.localShift) || a.id.localeCompare(b.id))
+        .slice(0, 5);
+      const themeMovers = active.themes.map((item, index) => ({
+        ...item,
+        rankCurrent: index + 1,
+        rankBaseline: baselineThemeRank[item.theme] || index + 1,
+        rankShift: (baselineThemeRank[item.theme] || index + 1) - (index + 1),
+        signalShift: +(item.tunedSignal - (baselineThemeLookup[item.theme]?.tunedSignal || item.tunedSignal)).toFixed(2)
+      }))
+        .sort((a, b) => Math.abs(b.rankShift) - Math.abs(a.rankShift) || Math.abs(b.signalShift) - Math.abs(a.signalShift) || a.theme.localeCompare(b.theme))
+        .slice(0, 5);
+      const meanEffectiveLocal = +(active.papers.reduce((sum, item) => sum + item.effectiveLocal, 0) / active.papers.length).toFixed(2);
+      const baselineMeanEffectiveLocal = +(baseline.papers.reduce((sum, item) => sum + item.effectiveLocal, 0) / baseline.papers.length).toFixed(2);
+      return {
+        activeSnapshot,
+        baselineSnapshot,
+        active,
+        baseline,
+        paperMovers,
+        themeMovers,
+        meanEffectiveLocal,
+        baselineMeanEffectiveLocal
+      };
+    }
+
+    function readBibliographyState() {
+      try {
+        if (typeof localStorage === "undefined") return null;
+        const raw = localStorage.getItem(bibliographyStateKey);
+        return raw ? JSON.parse(raw) : null;
+      } catch {
+        return null;
+      }
+    }
+
+    function writeBibliographyState(state) {
+      try {
+        if (typeof localStorage === "undefined") return;
+        localStorage.setItem(bibliographyStateKey, JSON.stringify(state));
+      } catch {
+        // Ignore storage failures in restricted environments.
+      }
+    }
+
+    function restoreBibliographyState() {
+      const state = readBibliographyState();
+      if (!state) return;
+      bibliographyControlIds.forEach(id => {
+        const node = document.getElementById(id);
+        if (node && Object.prototype.hasOwnProperty.call(state, id)) node.value = state[id];
+      });
+    }
+
+    function saveBibliographyState() {
+      const state = Object.fromEntries(
+        bibliographyControlIds.map(id => [id, document.getElementById(id)?.value ?? ""])
+      );
+      writeBibliographyState(state);
+    }
+
+    function downloadTextFile(filename, content) {
+      if (typeof document === "undefined") return;
+      const blob = new Blob([content], { type: "text/markdown;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = filename;
+      if (typeof anchor.click === "function") anchor.click();
+      setTimeout(() => URL.revokeObjectURL(url), 0);
+    }
+
+    function populatePaperComparator() {
+      const selectA = document.getElementById("comparePaperA");
+      const selectB = document.getElementById("comparePaperB");
+      const currentA = selectA.value;
+      const currentB = selectB.value;
+      const options = papers.map(item => `<option value="${item.id}">${item.title}</option>`).join("");
+      selectA.innerHTML = options;
+      selectB.innerHTML = options;
+      if (currentA && papers.some(item => item.id === currentA)) selectA.value = currentA;
+      if (currentB && papers.some(item => item.id === currentB)) selectB.value = currentB;
+      if (!selectA.value) selectA.value = "bartos2025";
+      if (!selectB.value) selectB.value = "hong2025";
+      if (selectA.value === selectB.value) {
+        selectB.value = papers.find(item => item.id !== selectA.value)?.id || selectA.value;
+      }
+    }
+
+    function currentObjectiveOrderedPapers(preset = getObjectivePreset()) {
+      return [...currentObjectivePapers(preset)].sort((a, b) =>
+        b.objectiveFit - a.objectiveFit ||
+        b.opportunity - a.opportunity ||
+        b.year - a.year ||
+        a.id.localeCompare(b.id)
+      );
+    }
+
+    function filteredPapers() {
+      const theme = document.getElementById("themeSelect").value;
+      const year = document.getElementById("yearSelect").value;
+      const maturity = document.getElementById("maturitySelect").value;
+      const sortBy = document.getElementById("sortSelect").value;
+      const search = document.getElementById("searchInput").value.trim().toLowerCase();
+      return currentObjectivePapers()
+        .map(item => ({ ...item, ...modeledPaperLookup[item.id] }))
+        .filter(item => theme === "all" ? true : item.theme === theme)
+        .filter(item => year === "all" ? true : String(item.year) === year)
+        .filter(item => maturity === "all" ? true : item.maturity === maturity)
+        .filter(item => {
+          if (!search) return true;
+          const haystack = [item.title, item.theme, item.note, item.why, item.journal, item.authors, item.localBridge, item.nextStudy].join(" ").toLowerCase();
+          return haystack.includes(search);
+        })
+        .sort((a, b) => {
+          if (sortBy === "posterior") return b.posteriorOpportunity - a.posteriorOpportunity || b.top3Probability - a.top3Probability || a.id.localeCompare(b.id);
+          if (sortBy === "opportunity") return b.opportunity - a.opportunity || b.objectiveFit - a.objectiveFit || a.id.localeCompare(b.id);
+          if (sortBy === "readiness") return b.readiness - a.readiness || b.objectiveFit - a.objectiveFit || a.id.localeCompare(b.id);
+          if (sortBy === "year") return b.year - a.year || b.objectiveFit - a.objectiveFit || a.id.localeCompare(b.id);
+          return b.objectiveFit - a.objectiveFit || b.opportunity - a.opportunity || a.id.localeCompare(b.id);
+        });
+    }
+
+    function paperThemeSummaries(items) {
+      const bucket = new Map();
+      items.forEach(item => {
+        if (!bucket.has(item.theme)) {
+          bucket.set(item.theme, { theme: item.theme, count: 0, totalFit: 0, best: item });
+        }
+        const entry = bucket.get(item.theme);
+        entry.count += 1;
+        entry.totalFit += item.objectiveFit;
+        if (item.objectiveFit > entry.best.objectiveFit) entry.best = item;
+      });
+      return [...bucket.values()]
+        .map(entry => ({
+          theme: entry.theme,
+          count: entry.count,
+          avgFit: +(entry.totalFit / entry.count).toFixed(2),
+          best: entry.best
+        }))
+        .sort((a, b) => b.avgFit - a.avgFit || b.count - a.count || a.theme.localeCompare(b.theme));
+    }
+
+    function updateMetrics() {
+      const themes = uniqueValues(papers, "theme");
+      document.getElementById("metricPapers").textContent = papers.length;
+      document.getElementById("metricThemes").textContent = themes.length;
+      document.getElementById("metricNewest").textContent = Math.max(...papers.map(item => item.year));
+      document.getElementById("metricExperimental").textContent =
+        papers.filter(item => item.maturity !== "near-ready").length;
+    }
+
+    function populateFilters() {
+      const themeSelect = document.getElementById("themeSelect");
+      const yearSelect = document.getElementById("yearSelect");
+      uniqueValues(papers, "theme").sort().forEach(theme => {
+        const option = document.createElement("option");
+        option.value = theme;
+        option.textContent = theme;
+        themeSelect.appendChild(option);
+      });
+      uniqueValues(papers, "year").sort((a, b) => b - a).forEach(year => {
+        const option = document.createElement("option");
+        option.value = String(year);
+        option.textContent = String(year);
+        yearSelect.appendChild(option);
+      });
+    }
+
+    function renderStarterReading() {
+      const preset = getObjectivePreset();
+      const objectiveItems = [...currentObjectiveOrderedPapers()].map(item => ({ ...item, ...modeledPaperLookup[item.id] }));
+      const items = preset.id === "moonshot"
+        ? [...objectiveItems].sort((a, b) => b.frontierSignal - a.frontierSignal || b.posteriorOpportunity - a.posteriorOpportunity).slice(0, 5)
+        : objectiveItems.slice(0, 5);
+      document.getElementById("readingList").innerHTML = items.map(item => `
+        <article class="reading-item">
+          <strong>${item.title}</strong>
+          <div class="paper-meta">${item.authors} - ${item.journal} ${item.year}</div>
+          <p style="margin-top:0.5rem;">${item.why}</p>
+          <div class="tiny" style="margin-top:0.4rem;"><strong>Posterior:</strong> ${item.posteriorOpportunity} | <strong>Track:</strong> ${item.track}</div>
+          <div class="tiny" style="margin-top:0.4rem;"><strong>Local bridge:</strong> ${item.localBridge || "Define a local bridge."}</div>
+        </article>
+      `).join("");
+    }
+
+    function renderThemePills() {
+      const themes = uniqueValues(papers, "theme").sort();
+      document.getElementById("themePills").innerHTML = themes.map(theme => `<span class="pill">${theme}</span>`).join("");
+    }
+
+    function renderLaunchpads() {
+      document.getElementById("launchpadGrid").innerHTML = localLaunchpads.map(item => `
+        <article class="launchpad-card">
+          <h3>${item.title}</h3>
+          <div class="launchpad-metric">${item.metric}</div>
+          <p>${item.note}</p>
+          <div class="tiny"><strong>Asset:</strong> ${item.asset}</div>
+        </article>
+      `).join("");
+    }
+
+    function renderLocalMesh() {
+      const snapshot = getMeshSnapshot();
+      const hottestCluster = [...snapshot.clusters].sort((a, b) => b.count - a.count || a.title.localeCompare(b.title))[0];
+      const recentNames = snapshot.recentProjects.map(item => item.name);
+      document.getElementById("meshStatus").textContent = meshStatusText(snapshot);
+      document.getElementById("meshGrid").innerHTML = snapshot.clusters.map(item => `
+        <article class="launchpad-card">
+          <h3>${item.title}</h3>
+          <div class="launchpad-metric">${item.count}</div>
+          <p>${item.note}</p>
+        </article>
+      `).join("");
+      document.getElementById("recentProjectList").innerHTML = snapshot.recentProjects.map(item => `
+        <article class="reading-item">
+          <strong>${item.name}</strong>
+          <div class="tiny">Touched ${item.when}</div>
+        </article>
+      `).join("");
+      document.getElementById("meshNarrativeList").innerHTML = [
+        {
+          title: "Densest local cluster",
+          body: `${hottestCluster.title} leads with ${hottestCluster.count} directories, so the shortest path from paper to benchmark is strongest there.`
+        },
+        {
+          title: "Freshest folders",
+          body: `${recentNames.slice(0, 4).join(", ")} were the freshest folders in the bundled scan and can seed a rapid methods sprint.`
+        },
+        {
+          title: "Implication",
+          body: "The local mesh is broad enough to support both quick benchmark papers and more ambitious objective-driven moonshot builds."
+        }
+      ].map(item => `
+        <article class="reading-item">
+          <strong>${item.title}</strong>
+          <div class="tiny">${item.body}</div>
+        </article>
+      `).join("");
+    }
+
+    function renderMeshImpact() {
+      const impact = buildMeshImpactSnapshot();
+      const topBaselinePaper = impact.baseline.papers[0];
+      const topActivePaper = impact.active.papers[0];
+      const topBaselineTheme = impact.baseline.themes[0];
+      const topActiveTheme = impact.active.themes[0];
+      const biggestPaperMover = impact.paperMovers[0];
+      const biggestThemeMover = impact.themeMovers[0];
+      const meanShift = +(impact.meanEffectiveLocal - impact.baselineMeanEffectiveLocal).toFixed(2);
+      document.getElementById("meshImpactGrid").innerHTML = `
+        <article class="launchpad-card">
+          <div class="mini-kicker">Top paper shift</div>
+          <div class="launchpad-metric">${topBaselinePaper.id === topActivePaper.id ? "0" : "1"}</div>
+          <div><strong>${topBaselinePaper.title} -> ${topActivePaper.title}</strong></div>
+          <p>${impact.baselineSnapshot.source} versus ${impact.activeSnapshot.source}.</p>
+        </article>
+        <article class="launchpad-card">
+          <div class="mini-kicker">Top theme shift</div>
+          <div class="launchpad-metric">${topBaselineTheme.theme === topActiveTheme.theme ? "0" : "1"}</div>
+          <div><strong>${topBaselineTheme.theme} -> ${topActiveTheme.theme}</strong></div>
+          <p>${impact.activeSnapshot.projectRoot}</p>
+        </article>
+        <article class="launchpad-card">
+          <div class="mini-kicker">Largest paper mover</div>
+          <div class="launchpad-metric">${biggestPaperMover.rankShift > 0 ? "+" : ""}${biggestPaperMover.rankShift}</div>
+          <div><strong>${biggestPaperMover.title}</strong></div>
+          <p>Local shift ${biggestPaperMover.localShift}</p>
+        </article>
+        <article class="launchpad-card">
+          <div class="mini-kicker">Mean local shift</div>
+          <div class="launchpad-metric">${meanShift > 0 ? "+" : ""}${meanShift}</div>
+          <div><strong>${impact.baselineMeanEffectiveLocal} -> ${impact.meanEffectiveLocal}</strong></div>
+          <p>Average effective local build score across all papers.</p>
+        </article>
+      `;
+      document.getElementById("meshImpactPaperList").innerHTML = impact.paperMovers.map(item => `
+        <article class="reading-item">
+          <strong>${item.title}</strong>
+          <div class="tiny">Rank ${item.rankBaseline} -> ${item.rankCurrent} | Shift ${item.rankShift > 0 ? "+" : ""}${item.rankShift}</div>
+          <div class="tiny">Effective local ${item.effectiveLocal} | Delta ${item.localShift > 0 ? "+" : ""}${item.localShift}</div>
+        </article>
+      `).join("");
+      document.getElementById("meshImpactThemeList").innerHTML = impact.themeMovers.map(item => `
+        <article class="reading-item">
+          <strong>${item.theme}</strong>
+          <div class="tiny">Rank ${item.rankBaseline} -> ${item.rankCurrent} | Shift ${item.rankShift > 0 ? "+" : ""}${item.rankShift}</div>
+          <div class="tiny">Signal ${item.tunedSignal} | Delta ${item.signalShift > 0 ? "+" : ""}${item.signalShift}</div>
+        </article>
+      `).join("");
+    }
+
+    function renderObjectiveSummary() {
+      const preset = getObjectivePreset();
+      const ordered = [...currentObjectiveOrderedPapers()].map(item => {
+        const modeled = modeledPaperLookup[item.id];
+        const meshSupport = meshSupportForTheme(item.theme);
+        const effectiveLocal = +(0.76 * modeled.localTractability + 0.24 * meshSupport).toFixed(2);
+        return { ...item, ...modeled, meshSupport, effectiveLocal };
+      });
+      const top = ordered[0];
+      const topBuild = [...ordered].sort((a, b) => b.effectiveLocal - a.effectiveLocal || b.objectiveFit - a.objectiveFit)[0];
+      const topFrontier = [...ordered].sort((a, b) => b.frontierSignal - a.frontierSignal || b.objectiveFit - a.objectiveFit)[0];
+      const topPosterior = [...modeledPapers][0];
+      document.getElementById("objectiveNarrative").innerHTML = `<strong>${preset.name}:</strong> ${preset.description}`;
+      document.getElementById("objectiveSummary").innerHTML = `
+        <article class="reading-item">
+          <strong>Top paper right now</strong>
+          <div class="paper-meta">${top.title}</div>
+          <p>${top.nextStudy}</p>
+          <div class="tiny">Objective fit ${top.objectiveFit} | Opportunity ${top.opportunity}</div>
+        </article>
+        <article class="reading-item">
+          <strong>Top posterior paper</strong>
+          <div class="paper-meta">${topPosterior.title}</div>
+          <p>${topPosterior.nextStudy}</p>
+          <div class="tiny">Posterior ${topPosterior.posteriorOpportunity} | Track ${topPosterior.track}</div>
+        </article>
+        <article class="reading-item">
+          <strong>Fastest local build</strong>
+          <div class="paper-meta">${topBuild.title}</div>
+          <p>${topBuild.localBridge}</p>
+          <div class="tiny">Effective local build ${topBuild.effectiveLocal} | Mesh ${topBuild.meshSupport}</div>
+        </article>
+      `;
+    }
+
+    function renderBuildOrder() {
+      const current = [...currentObjectiveOrderedPapers()].map(item => ({ ...item, ...modeledPaperLookup[item.id] }));
+      const ordered = current.slice(0, 5);
+      const themes = paperThemeSummaries(current).slice(0, 5);
+      document.getElementById("buildOrderList").innerHTML = ordered.map((item, index) => `
+        <article class="reading-item">
+          <strong>#${index + 1} ${item.title}</strong>
+          <div class="paper-meta">${item.theme} - ${titleCaseMaturity(item.maturity)}</div>
+          <div class="tiny">Objective fit ${item.objectiveFit} | Posterior ${item.posteriorOpportunity} | ${item.track}</div>
+          <div class="tiny">${item.nextStudy}</div>
+        </article>
+      `).join("");
+      document.getElementById("themeCoverageList").innerHTML = themes.map(item => `
+        <article class="reading-item">
+          <strong>${item.theme}</strong>
+          <div class="tiny">Average fit ${item.avgFit} across ${item.count} paper${item.count === 1 ? "" : "s"}</div>
+          <div class="tiny">Lead paper: ${item.best.title}</div>
+        </article>
+      `).join("");
+    }
+
+    function renderPapers() {
+      const items = filteredPapers();
+      document.getElementById("paperGrid").innerHTML = items.map(item => `
+        <article class="paper-card">
+          <div class="paper-top">
+            <div>
+              <h3>${item.title}</h3>
+              <div class="paper-meta">${item.authors} - ${item.journal} - ${item.year}</div>
+            </div>
+            <div class="tag-row">
+              <span class="tag theme">${item.theme}</span>
+              <span class="tag ${maturityClass(item.maturity)}">${titleCaseMaturity(item.maturity)}</span>
+            </div>
+          </div>
+          <div class="score-strip">
+            <div class="score-box"><strong>${item.readiness}</strong><span>Readiness</span></div>
+            <div class="score-box"><strong>${item.strategicValue}</strong><span>Strategic</span></div>
+            <div class="score-box"><strong>${item.localTractability}</strong><span>Local build</span></div>
+            <div class="score-box"><strong>${item.posteriorOpportunity}</strong><span>Posterior</span></div>
+          </div>
+          <p><strong>Why it matters:</strong> ${item.why}</p>
+          <p><strong>Read it for:</strong> ${item.note}</p>
+          <div class="paper-detail">
+            <div><strong>Objective fit:</strong> ${item.objectiveFit} | <strong>Track:</strong> ${item.track}</div>
+            <div><strong>Posterior interval:</strong> ${item.posteriorLow} to ${item.posteriorHigh} | <strong>Top-3 prob:</strong> ${item.top3Probability}%</div>
+            <div><strong>Overall opportunity:</strong> ${item.opportunity}</div>
+            <div><strong>Local bridge:</strong> ${item.localBridge || "No mapped local bridge yet."}</div>
+            <div><strong>Next study:</strong> ${item.nextStudy || "Define a local benchmark or empirical extension."}</div>
+          </div>
+          <p><a href="${item.source}" target="_blank" rel="noreferrer">Open source record</a></p>
+        </article>
+      `).join("");
+    }
+
+    function renderPaperModel() {
+      const topPosterior = modeledPapers[0];
+      const tractableMoonshot = modeledPapers.find(item => item.track === "Tractable moonshot") || modeledPapers[0];
+      const fragileMoonshot = modeledPapers.find(item => item.track === "Fragile moonshot") || modeledPapers[modeledPapers.length - 1];
+      const topProbability = [...modeledPapers].sort((a, b) => b.top3Probability - a.top3Probability || b.posteriorOpportunity - a.posteriorOpportunity)[0];
+      document.getElementById("paperModelSummary").innerHTML = `
+        <article class="reading-item">
+          <strong>Top posterior paper</strong>
+          <div class="paper-meta">${topPosterior.title}</div>
+          <div class="tiny">Posterior ${topPosterior.posteriorOpportunity} | ${topPosterior.posteriorLow} to ${topPosterior.posteriorHigh}</div>
+        </article>
+        <article class="reading-item">
+          <strong>Highest top-3 probability</strong>
+          <div class="paper-meta">${topProbability.title}</div>
+          <div class="tiny">Top-3 probability ${topProbability.top3Probability}%</div>
+        </article>
+        <article class="reading-item">
+          <strong>Best tractable moonshot</strong>
+          <div class="paper-meta">${tractableMoonshot.title}</div>
+          <div class="tiny">Frontier ${tractableMoonshot.frontierSignal} | Posterior ${tractableMoonshot.posteriorOpportunity}</div>
+        </article>
+        <article class="reading-item">
+          <strong>Most fragile moonshot</strong>
+          <div class="paper-meta">${fragileMoonshot.title}</div>
+          <div class="tiny">Frontier ${fragileMoonshot.frontierSignal} | Local build ${fragileMoonshot.localTractability}</div>
+        </article>
+      `;
+      const robustCore = modeledPapers.filter(item => item.track === "Robust core").slice(0, 4);
+      const tractable = modeledPapers.filter(item => item.track === "Tractable moonshot").slice(0, 4);
+      const fragile = modeledPapers.filter(item => item.track === "Fragile moonshot").slice(0, 4);
+      document.getElementById("paperTrackList").innerHTML = [
+        { label: "Robust core", items: robustCore },
+        { label: "Tractable moonshot", items: tractable },
+        { label: "Fragile moonshot", items: fragile }
+      ].map(group => `
+        <article class="reading-item">
+          <strong>${group.label}</strong>
+          <div class="tiny">${group.items.map(item => item.id).join(", ") || "None in this track."}</div>
+        </article>
+      `).join("");
+      document.getElementById("paperModelTableBody").innerHTML = modeledPapers.map(item => `
+        <tr>
+          <td><strong>${item.title}</strong><br><span class="tiny">${item.theme}</span></td>
+          <td>${item.posteriorOpportunity}</td>
+          <td>${item.posteriorLow} to ${item.posteriorHigh}</td>
+          <td>${item.top3Probability}%</td>
+          <td>${item.frontierSignal}</td>
+          <td>${item.localTractability}</td>
+          <td>${item.track}</td>
+        </tr>
+      `).join("");
+    }
+
+    function renderObjectiveMatrix() {
+      const scoreLookup = Object.fromEntries(
+        objectivePresets.map(preset => [preset.id, Object.fromEntries(scoredPapers.map(item => [item.id, weightedTotal(objectiveValues(item, preset), preset.weights)]))])
+      );
+      document.getElementById("objectiveMatrixBody").innerHTML = modeledPapers.map(item => `
+        <tr>
+          <td><strong>${item.title}</strong><br><span class="tiny">${item.theme}</span></td>
+          <td>${scoreLookup["balanced"][item.id]}</td>
+          <td>${scoreLookup["build-now"][item.id]}</td>
+          <td>${scoreLookup["bias-program"][item.id]}</td>
+          <td>${scoreLookup["transport-hta"][item.id]}</td>
+          <td>${scoreLookup["survival-network"][item.id]}</td>
+          <td>${scoreLookup["moonshot"][item.id]}</td>
+          <td>${item.posteriorOpportunity}</td>
+          <td>${item.track}</td>
+        </tr>
+      `).join("");
+    }
+
+    function renderAssemblyStudio() {
+      const preset = getObjectivePreset();
+      const objectiveItems = currentObjectiveModeledPapers();
+      const bundles = buildPaperBundles(preset);
+      const sprints = buildExecutionSprints(objectiveItems);
+      const gaps = buildCoverageGapScan(objectiveItems);
+      const topBundle = bundles[0];
+      const topSprint = sprints[0];
+      const biggestGap = gaps[0];
+      const moonshotAnchor = objectiveItems.find(item => item.track.toLowerCase().includes("moonshot")) || objectiveItems[0];
+      document.getElementById("assemblyInsightGrid").innerHTML = `
+        <article class="launchpad-card">
+          <div class="mini-kicker">Best bundle</div>
+          <div class="launchpad-metric">${topBundle.bundleScore}</div>
+          <div><strong>${topBundle.label}</strong></div>
+          <p>${topBundle.names}</p>
+        </article>
+        <article class="launchpad-card">
+          <div class="mini-kicker">Fastest sprint</div>
+          <div class="launchpad-metric">${topSprint.lead.localTractability}</div>
+          <div><strong>${topSprint.title}</strong></div>
+          <p>${topSprint.lead.title}</p>
+        </article>
+        <article class="launchpad-card">
+          <div class="mini-kicker">Largest theme gap</div>
+          <div class="launchpad-metric">${biggestGap.gapPressure}</div>
+          <div><strong>${biggestGap.theme}</strong></div>
+          <p>${biggestGap.action}</p>
+        </article>
+        <article class="launchpad-card">
+          <div class="mini-kicker">Moonshot anchor</div>
+          <div class="launchpad-metric">${moonshotAnchor.frontierSignal}</div>
+          <div><strong>${moonshotAnchor.title}</strong></div>
+          <p>${moonshotAnchor.nextStudy}</p>
+        </article>
+      `;
+      document.getElementById("paperBundleList").innerHTML = bundles.map(bundle => `
+        <article class="reading-item">
+          <strong>${bundle.label}</strong>
+          <div class="tiny">${bundle.names}</div>
+          <div class="tiny">Bundle ${bundle.bundleScore} | Objective ${bundle.meanObjective} | Posterior ${bundle.meanPosterior}</div>
+          <div class="tiny">${bundle.nextClaim}</div>
+        </article>
+      `).join("");
+      document.getElementById("executionSprintList").innerHTML = sprints.map(sprint => `
+        <article class="reading-item">
+          <strong>${sprint.title}</strong>
+          <div class="tiny">Lead: ${sprint.lead.title}</div>
+          <div class="tiny">Support: ${sprint.support.title}</div>
+          <div class="tiny">${sprint.metric}</div>
+          <div class="tiny">${sprint.output}</div>
+        </article>
+      `).join("");
+      document.getElementById("coverageGapList").innerHTML = gaps.map(gap => `
+        <article class="reading-item">
+          <strong>${gap.theme}</strong>
+          <div class="tiny">Gap ${gap.gapPressure} | Objective ${gap.avgObjective} | Local ${gap.avgLocal}</div>
+          <div class="tiny">Lead paper: ${gap.lead.title}</div>
+          <div class="tiny">${gap.action}</div>
+        </article>
+      `).join("");
+    }
+
+    function renderCustomObjectiveTuner() {
+      const preset = getObjectivePreset();
+      const tuning = buildCustomObjectiveRanking();
+      const topPaper = tuning.papers[0];
+      const fastestPaper = [...tuning.papers].sort((a, b) => b.effectiveLocal - a.effectiveLocal || b.tunedScore - a.tunedScore || a.id.localeCompare(b.id))[0];
+      const frontierPaper = [...tuning.papers].sort((a, b) => b.frontierSignal - a.frontierSignal || b.tunedScore - a.tunedScore || a.id.localeCompare(b.id))[0];
+      const topTheme = tuning.themes[0];
+      document.getElementById("customFrontierValue").textContent = tuning.raw.frontier;
+      document.getElementById("customReadinessValue").textContent = tuning.raw.readiness;
+      document.getElementById("customLocalBuildValue").textContent = tuning.raw.local;
+      document.getElementById("customProofValue").textContent = tuning.raw.proof;
+      document.getElementById("customPosteriorValue").textContent = tuning.raw.posterior;
+      document.getElementById("customRecencyValue").textContent = tuning.raw.recency;
+      document.getElementById("customObjectiveSummary").innerHTML = `
+        <article class="launchpad-card">
+          <div class="mini-kicker">Top tuned paper</div>
+          <div class="launchpad-metric">${topPaper.tunedScore}</div>
+          <div><strong>${topPaper.title}</strong></div>
+          <p>${topPaper.track}</p>
+        </article>
+        <article class="launchpad-card">
+          <div class="mini-kicker">Fastest local paper</div>
+          <div class="launchpad-metric">${fastestPaper.effectiveLocal}</div>
+          <div><strong>${fastestPaper.title}</strong></div>
+          <p>${fastestPaper.localBridge}</p>
+        </article>
+        <article class="launchpad-card">
+          <div class="mini-kicker">Pure frontier anchor</div>
+          <div class="launchpad-metric">${frontierPaper.frontierSignal}</div>
+          <div><strong>${frontierPaper.title}</strong></div>
+          <p>${frontierPaper.nextStudy}</p>
+        </article>
+        <article class="launchpad-card">
+          <div class="mini-kicker">Top tuned theme</div>
+          <div class="launchpad-metric">${topTheme.tunedSignal}</div>
+          <div><strong>${topTheme.theme}</strong></div>
+          <p>${topTheme.best.title}</p>
+        </article>
+      `;
+      document.getElementById("tunedPaperList").innerHTML = tuning.papers.slice(0, 5).map((item, index) => `
+        <article class="reading-item">
+          <strong>#${index + 1} ${item.title}</strong>
+          <div class="tiny">Tuned ${item.tunedScore} | Posterior ${item.posteriorOpportunity} | Local ${item.effectiveLocal}</div>
+          <div class="tiny">Mesh support ${item.meshSupport} | Static tractability ${item.localTractability}</div>
+          <div class="tiny">${item.nextStudy}</div>
+        </article>
+      `).join("");
+      document.getElementById("tunedThemeList").innerHTML = tuning.themes.slice(0, 5).map(item => `
+        <article class="reading-item">
+          <strong>${item.theme}</strong>
+          <div class="tiny">Signal ${item.tunedSignal} | Avg fit ${item.avgFit} | Avg local ${item.avgEffectiveLocal}</div>
+          <div class="tiny">Lead paper: ${item.best.title}</div>
+        </article>
+      `).join("");
+      document.getElementById("tunedMemoList").innerHTML = [
+        {
+          title: "Current manual stance",
+          body: `Under ${preset.name}, the current manual weighting elevates ${topPaper.title} because it balances cross-objective traction with live-adjusted local buildability ${topPaper.effectiveLocal}.`
+        },
+        {
+          title: "Best immediate move",
+          body: `Read and operationalize ${fastestPaper.title} first, then use ${topPaper.title} as the anchor paper for the broader program.`
+        },
+        {
+          title: "Main tension",
+          body: `${frontierPaper.title} remains the frontier anchor, but ${fastestPaper.title} is the tractable hedge if time-to-build matters more than conceptual novelty.`
+        }
+      ].map(item => `
+        <article class="reading-item">
+          <strong>${item.title}</strong>
+          <div class="tiny">${item.body}</div>
+        </article>
+      `).join("");
+    }
+
+    function buildObjectiveSweepSnapshot(preset = getObjectivePreset()) {
+      const runs = objectiveArchetypes.map(archetype => {
+        const ranking = buildCustomObjectiveRankingFromRaw(archetype.raw, preset);
+        return {
+          archetype,
+          paper: ranking.papers[0],
+          theme: ranking.themes[0]
+        };
+      });
+      const paperWins = new Map();
+      const themeWins = new Map();
+      runs.forEach(run => {
+        const paperEntry = paperWins.get(run.paper.id) || { count: 0, item: run.paper };
+        paperEntry.count += 1;
+        paperWins.set(run.paper.id, paperEntry);
+        const themeEntry = themeWins.get(run.theme.theme) || { count: 0, item: run.theme };
+        themeEntry.count += 1;
+        themeWins.set(run.theme.theme, themeEntry);
+      });
+      const consensusPaper = [...paperWins.values()].sort((a, b) => b.count - a.count || a.item.title.localeCompare(b.item.title))[0];
+      const consensusTheme = [...themeWins.values()].sort((a, b) => b.count - a.count || a.item.theme.localeCompare(b.item.theme))[0];
+      const frontierWinner = [...runs].sort((a, b) => b.paper.frontierSignal - a.paper.frontierSignal || b.paper.tunedScore - a.paper.tunedScore)[0];
+      const fastestWinner = [...runs].sort((a, b) => b.paper.effectiveLocal - a.paper.effectiveLocal || b.paper.tunedScore - a.paper.tunedScore)[0];
+      return { runs, consensusPaper, consensusTheme, frontierWinner, fastestWinner };
+    }
+
+    function renderObjectiveSweep() {
+      const { runs, consensusPaper, consensusTheme, frontierWinner, fastestWinner } = buildObjectiveSweepSnapshot();
+      document.getElementById("objectiveSweepGrid").innerHTML = `
+        <article class="launchpad-card">
+          <div class="mini-kicker">Consensus paper</div>
+          <div class="launchpad-metric">${consensusPaper.count}</div>
+          <div><strong>${consensusPaper.item.title}</strong></div>
+          <p>Top choice across ${runs.length} stances.</p>
+        </article>
+        <article class="launchpad-card">
+          <div class="mini-kicker">Consensus theme</div>
+          <div class="launchpad-metric">${consensusTheme.count}</div>
+          <div><strong>${consensusTheme.item.theme}</strong></div>
+          <p>Theme most often leading the tuned queue.</p>
+        </article>
+        <article class="launchpad-card">
+          <div class="mini-kicker">Frontier winner</div>
+          <div class="launchpad-metric">${frontierWinner.paper.frontierSignal}</div>
+          <div><strong>${frontierWinner.paper.title}</strong></div>
+          <p>${frontierWinner.archetype.label}</p>
+        </article>
+        <article class="launchpad-card">
+          <div class="mini-kicker">Fastest winner</div>
+          <div class="launchpad-metric">${fastestWinner.paper.effectiveLocal}</div>
+          <div><strong>${fastestWinner.paper.title}</strong></div>
+          <p>${fastestWinner.archetype.label}</p>
+        </article>
+      `;
+      document.getElementById("objectiveSweepTableBody").innerHTML = runs.map(run => `
+        <tr>
+          <td><strong>${run.archetype.label}</strong></td>
+          <td>${run.paper.title}</td>
+          <td>${run.paper.tunedScore}</td>
+          <td>${run.theme.theme}</td>
+          <td>${run.theme.tunedSignal}</td>
+        </tr>
+      `).join("");
+    }
+
+    function renderPaperComparator() {
+      const tuning = buildCustomObjectiveRanking();
+      const lookup = Object.fromEntries(tuning.papers.map(item => [item.id, item]));
+      let aId = document.getElementById("comparePaperA")?.value || tuning.papers[0].id;
+      let bId = document.getElementById("comparePaperB")?.value || tuning.papers[1]?.id || tuning.papers[0].id;
+      if (aId === bId) {
+        bId = tuning.papers.find(item => item.id !== aId)?.id || bId;
+        document.getElementById("comparePaperB").value = bId;
+      }
+      const a = lookup[aId] || tuning.papers[0];
+      const b = lookup[bId] || tuning.papers[1] || tuning.papers[0];
+      const tunedLeader = a.tunedScore >= b.tunedScore ? a : b;
+      const frontierLeader = a.frontierSignal >= b.frontierSignal ? a : b;
+      const localLeader = a.effectiveLocal >= b.effectiveLocal ? a : b;
+      const posteriorLeader = a.posteriorOpportunity >= b.posteriorOpportunity ? a : b;
+      document.getElementById("compareSummaryGrid").innerHTML = `
+        <article class="launchpad-card">
+          <div class="mini-kicker">Tuned winner</div>
+          <div class="launchpad-metric">${Math.abs(a.tunedScore - b.tunedScore).toFixed(2)}</div>
+          <div><strong>${tunedLeader.title}</strong></div>
+          <p>Lead under the current manual objective weighting.</p>
+        </article>
+        <article class="launchpad-card">
+          <div class="mini-kicker">Posterior winner</div>
+          <div class="launchpad-metric">${Math.abs(a.posteriorOpportunity - b.posteriorOpportunity).toFixed(2)}</div>
+          <div><strong>${posteriorLeader.title}</strong></div>
+          <p>Cross-objective opportunity edge.</p>
+        </article>
+        <article class="launchpad-card">
+          <div class="mini-kicker">Frontier winner</div>
+          <div class="launchpad-metric">${Math.abs(a.frontierSignal - b.frontierSignal).toFixed(2)}</div>
+          <div><strong>${frontierLeader.title}</strong></div>
+          <p>Conceptual novelty and field-reset edge.</p>
+        </article>
+        <article class="launchpad-card">
+          <div class="mini-kicker">Local build winner</div>
+          <div class="launchpad-metric">${Math.abs(a.effectiveLocal - b.effectiveLocal).toFixed(2)}</div>
+          <div><strong>${localLeader.title}</strong></div>
+          <p>Shortest live-adjusted path from reading to executable benchmark.</p>
+        </article>
+      `;
+      document.getElementById("compareTraceA").innerHTML = [
+        { label: "Track", value: `${a.track} | Tuned ${a.tunedScore}` },
+        { label: "Paper", value: `${a.authors}, ${a.journal} ${a.year}` },
+        { label: "Local bridge", value: a.localBridge || "No mapped local bridge yet." },
+        { label: "Live mesh support", value: `${a.meshSupport} -> effective local ${a.effectiveLocal}` },
+        { label: "Next study", value: a.nextStudy || "Define a benchmark extension." }
+      ].map(item => `
+        <article class="reading-item">
+          <strong>${item.label}</strong>
+          <div class="tiny">${item.value}</div>
+        </article>
+      `).join("");
+      document.getElementById("compareTraceB").innerHTML = [
+        { label: "Track", value: `${b.track} | Tuned ${b.tunedScore}` },
+        { label: "Paper", value: `${b.authors}, ${b.journal} ${b.year}` },
+        { label: "Local bridge", value: b.localBridge || "No mapped local bridge yet." },
+        { label: "Live mesh support", value: `${b.meshSupport} -> effective local ${b.effectiveLocal}` },
+        { label: "Next study", value: b.nextStudy || "Define a benchmark extension." }
+      ].map(item => `
+        <article class="reading-item">
+          <strong>${item.label}</strong>
+          <div class="tiny">${item.value}</div>
+        </article>
+      `).join("");
+      const rows = [
+        ["Current objective fit", a.objectiveFit, b.objectiveFit],
+        ["Tuned score", a.tunedScore, b.tunedScore],
+        ["Posterior opportunity", a.posteriorOpportunity, b.posteriorOpportunity],
+        ["Frontier signal", a.frontierSignal, b.frontierSignal],
+        ["Readiness", a.readiness, b.readiness],
+        ["Static local tractability", a.localTractability, b.localTractability],
+        ["Live mesh support", a.meshSupport, b.meshSupport],
+        ["Effective local build", a.effectiveLocal, b.effectiveLocal],
+        ["Proof power", a.proofPower, b.proofPower],
+        ["Top-3 probability", a.top3Probability, b.top3Probability]
+      ];
+      document.getElementById("compareMetricTableBody").innerHTML = rows.map(([label, left, right]) => {
+        const delta = +(left - right).toFixed(2);
+        return `
+          <tr>
+            <td><strong>${label}</strong></td>
+            <td>${left}</td>
+            <td>${right}</td>
+            <td>${delta > 0 ? "+" : ""}${delta}</td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function generateReadingBrief() {
+      const preset = getObjectivePreset();
+      const tuning = buildCustomObjectiveRanking(preset);
+      const topPaper = tuning.papers[0];
+      const topTheme = tuning.themes[0];
+      const topBundle = buildPaperBundles(preset)[0];
+      const topSprint = buildExecutionSprints(currentObjectiveModeledPapers(preset))[0];
+      const biggestGap = buildCoverageGapScan(currentObjectiveModeledPapers(preset))[0];
+      const snapshot = getMeshSnapshot();
+      const hottestCluster = [...snapshot.clusters].sort((a, b) => b.count - a.count || a.title.localeCompare(b.title))[0];
+      const recent = snapshot.recentProjects.slice(0, 4).map(item => item.name).join(", ");
+      return [
+        `# Meta-Frontier Reading Brief`,
+        ``,
+        `## Current stance`,
+        `Objective preset: ${preset.name}`,
+        `Manual weights: frontier ${tuning.raw.frontier}, readiness ${tuning.raw.readiness}, local ${tuning.raw.local}, proof ${tuning.raw.proof}, posterior ${tuning.raw.posterior}, recency ${tuning.raw.recency}`,
+        ``,
+        `## Lead recommendation`,
+        `Lead paper: ${topPaper.title}`,
+        `Lead theme: ${topTheme.theme}`,
+        `Why this wins: it combines tuned score ${topPaper.tunedScore}, posterior ${topPaper.posteriorOpportunity}, and live-adjusted local buildability ${topPaper.effectiveLocal}.`,
+        ``,
+        `## Best executable reading bundle`,
+        `Bundle: ${topBundle.names}`,
+        `Fastest sprint: ${topSprint.title} led by ${topSprint.lead.title}`,
+        `Bundle claim: ${topBundle.nextClaim}`,
+        ``,
+        `## Main unresolved gap`,
+        `Gap theme: ${biggestGap.theme}`,
+        `Gap action: ${biggestGap.action}`,
+        ``,
+        `## Local support`,
+        `Mesh snapshot: ${snapshot.source} for ${snapshot.projectRoot}, captured ${snapshot.capturedAt}`,
+        `Densest local cluster: ${hottestCluster.title} (${hottestCluster.count} directories)`,
+        `Recent project pulse: ${recent}`,
+        ``,
+        `## Immediate next steps`,
+        `1. Start with ${topSprint.lead.title} as the fast operational paper.`,
+        `2. Use ${topPaper.title} as the anchor paper for the broader benchmark or methods write-up.`,
+        `3. Expand only after the ${biggestGap.theme} gap has a local bridge and an executable benchmark plan.`,
+        ``,
+        `## Sources inside app`,
+        `Bibliography: objective model, assembly studio, custom tuner, objective sweep, and bundled local research mesh snapshot.`
+      ].join("\n");
+    }
+
+    function renderReadingBrief() {
+      document.getElementById("briefPreview").textContent = generateReadingBrief();
+    }
+
+    function refreshBibliography() {
+      updateMetrics();
+      renderStarterReading();
+      renderThemePills();
+      renderLaunchpads();
+      renderLocalMesh();
+      renderMeshImpact();
+      renderObjectiveSummary();
+      renderBuildOrder();
+      renderPaperModel();
+      renderObjectiveMatrix();
+      renderAssemblyStudio();
+      renderCustomObjectiveTuner();
+      renderObjectiveSweep();
+      renderPaperComparator();
+      renderReadingBrief();
+      renderPapers();
+      document.getElementById("scriptPreview").textContent = generateRScript();
+      saveBibliographyState();
+    }
+
+    ["searchInput", "themeSelect", "yearSelect", "maturitySelect", "objectiveSelect", "sortSelect"].forEach(id => {
+      document.getElementById(id).addEventListener("input", refreshBibliography);
+      document.getElementById(id).addEventListener("change", refreshBibliography);
+    });
+
+    ["customFrontierRange", "customReadinessRange", "customLocalBuildRange", "customProofRange", "customPosteriorRange", "customRecencyRange"].forEach(id => {
+      document.getElementById(id).addEventListener("input", refreshBibliography);
+      document.getElementById(id).addEventListener("change", refreshBibliography);
+    });
+
+    ["comparePaperA", "comparePaperB"].forEach(id => {
+      document.getElementById(id).addEventListener("input", refreshBibliography);
+      document.getElementById(id).addEventListener("change", refreshBibliography);
+    });
+
+    populateFilters();
+    populatePaperComparator();
+    restoreBibliographyState();
+    populatePaperComparator();
+    refreshBibliography();
+ 
+    const validationState = {
+      webR: null,
+      loading: false,
+      running: false
+    };
+
+    function escapeRString(value) {
+      return String(value).replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+    }
+
+    function generateRScript() {
+      const preset = getObjectivePreset();
+      const tuning = buildCustomObjectiveRanking(preset);
+      const sweep = buildObjectiveSweepSnapshot(preset);
+      const tuningPaperLookup = Object.fromEntries(tuning.papers.map(item => [item.id, item]));
+      const compareAId = escapeRString(document.getElementById("comparePaperA")?.value || tuning.papers[0].id);
+      const compareBId = escapeRString(document.getElementById("comparePaperB")?.value || tuning.papers[1]?.id || tuning.papers[0].id);
+      const ids = scoredPapers.map(item => `"${escapeRString(item.id)}"`).join(", ");
+      const years = scoredPapers.map(item => item.year).join(", ");
+      const themes = scoredPapers.map(item => `"${escapeRString(item.theme)}"`).join(", ");
+      const readiness = scoredPapers.map(item => item.readiness).join(", ");
+      const strategicValue = scoredPapers.map(item => item.strategicValue).join(", ");
+      const localTractability = scoredPapers.map(item => item.localTractability).join(", ");
+      const proofPower = scoredPapers.map(item => item.proofPower).join(", ");
+      const frontierSignal = scoredPapers.map(item => item.frontierSignal).join(", ");
+      const opportunity = scoredPapers.map(item => item.opportunity).join(", ");
+      const posteriorOpportunity = scoredPapers.map(item => modeledPaperLookup[item.id].posteriorOpportunity).join(", ");
+      const meshSupport = scoredPapers.map(item => tuningPaperLookup[item.id].meshSupport).join(", ");
+      const effectiveLocal = scoredPapers.map(item => tuningPaperLookup[item.id].effectiveLocal).join(", ");
+      const customRaw = getCustomObjectiveWeights().raw;
+      const focusThemes = preset.focusThemes.map(item => `"${escapeRString(item)}"`).join(", ");
+      const archetypeLabels = objectiveArchetypes.map(item => `"${escapeRString(item.label)}"`).join(", ");
+      const archetypeFrontier = objectiveArchetypes.map(item => item.raw.frontier).join(", ");
+      const archetypeReadiness = objectiveArchetypes.map(item => item.raw.readiness).join(", ");
+      const archetypeLocal = objectiveArchetypes.map(item => item.raw.local).join(", ");
+      const archetypeProof = objectiveArchetypes.map(item => item.raw.proof).join(", ");
+      const archetypePosterior = objectiveArchetypes.map(item => item.raw.posterior).join(", ");
+      const archetypeRecency = objectiveArchetypes.map(item => item.raw.recency).join(", ");
+      const rKeyMap = {
+        opportunity: "df$opportunity",
+        readiness: "df$readiness",
+        strategicValue: "df$strategic_value",
+        localTractability: "df$local_tractability",
+        proofPower: "df$proof_power",
+        frontierSignal: "df$frontier_signal",
+        recency: "recency",
+        focus: "focus"
+      };
+      const objectiveExpr = Object.entries(preset.weights)
+        .map(([key, value]) => `${value} * ${rKeyMap[key]}`)
+        .join(" + ");
+      return [
+        "ids <- c(" + ids + ")",
+        "years <- c(" + years + ")",
+        "themes <- c(" + themes + ")",
+        "readiness <- c(" + readiness + ")",
+        "strategic_value <- c(" + strategicValue + ")",
+        "local_tractability <- c(" + localTractability + ")",
+        "proof_power <- c(" + proofPower + ")",
+        "frontier_signal <- c(" + frontierSignal + ")",
+        "opportunity <- c(" + opportunity + ")",
+        "posterior_opportunity <- c(" + posteriorOpportunity + ")",
+        "mesh_support <- c(" + meshSupport + ")",
+        "effective_local <- c(" + effectiveLocal + ")",
+        "tune_raw <- c(frontier = " + customRaw.frontier + ", readiness = " + customRaw.readiness + ", local = " + customRaw.local + ", proof = " + customRaw.proof + ", posterior = " + customRaw.posterior + ", recency = " + customRaw.recency + ")",
+        "compare_a_id <- \"" + compareAId + "\"",
+        "compare_b_id <- \"" + compareBId + "\"",
+        "archetype_labels <- c(" + archetypeLabels + ")",
+        "archetype_frontier <- c(" + archetypeFrontier + ")",
+        "archetype_readiness <- c(" + archetypeReadiness + ")",
+        "archetype_local <- c(" + archetypeLocal + ")",
+        "archetype_proof <- c(" + archetypeProof + ")",
+        "archetype_posterior <- c(" + archetypePosterior + ")",
+        "archetype_recency <- c(" + archetypeRecency + ")",
+        "focus_themes <- c(" + focusThemes + ")",
+        "df <- data.frame(ids, years, themes, readiness, strategic_value, local_tractability, proof_power, frontier_signal, opportunity, stringsAsFactors = FALSE)",
+        "recency <- 60 + ((df$years - 2024) * 10)",
+        "focus <- if (length(focus_themes) == 0) rep(75, nrow(df)) else ifelse(df$themes %in% focus_themes, 100, 55)",
+        "df$objective_fit <- round(" + objectiveExpr + ", 2)",
+        "df$posterior_opportunity <- posterior_opportunity",
+        "df$mesh_support <- mesh_support",
+        "df$effective_local <- effective_local",
+        "tune_weights <- tune_raw / sum(tune_raw)",
+        "df$tuned_score <- round((tune_weights['frontier'] * df$frontier_signal) + (tune_weights['readiness'] * df$readiness) + (tune_weights['local'] * df$effective_local) + (tune_weights['proof'] * df$proof_power) + (tune_weights['posterior'] * df$posterior_opportunity) + (tune_weights['recency'] * recency), 2)",
+        "theme_levels <- sort(unique(df$themes))",
+        "counts <- table(factor(df$themes, levels = theme_levels))",
+        "ord_objective <- df[order(-df$objective_fit, -df$opportunity, -df$years, df$ids), ]",
+        "ord_tuned <- df[order(-df$tuned_score, -df$posterior_opportunity, df$ids), ]",
+        "compare_df <- df[match(c(compare_a_id, compare_b_id), df$ids), ]",
+        "compare_winner <- if (compare_df$tuned_score[1] >= compare_df$tuned_score[2]) compare_a_id else compare_b_id",
+        "build_theme_summary <- function(frame) {",
+        "  levels_local <- sort(unique(frame$themes))",
+        "  avg_fit <- sapply(levels_local, function(level) round(mean(frame$objective_fit[frame$themes == level]), 2))",
+        "  avg_tuned <- sapply(levels_local, function(level) round(mean(frame$tuned_score[frame$themes == level]), 2))",
+        "  avg_posterior <- sapply(levels_local, function(level) round(mean(frame$posterior_opportunity[frame$themes == level]), 2))",
+        "  avg_effective_local <- sapply(levels_local, function(level) round(mean(frame$effective_local[frame$themes == level]), 2))",
+        "  best_index <- sapply(levels_local, function(level) {",
+        "    idx <- which(frame$themes == level)",
+        "    idx[order(-frame$tuned_score[idx], -frame$posterior_opportunity[idx], frame$ids[idx])[1]]",
+        "  })",
+        "  best_posterior <- frame$posterior_opportunity[best_index]",
+        "  best_frontier <- frame$frontier_signal[best_index]",
+        "  best_local <- frame$effective_local[best_index]",
+        "  tuned_signal <- round((0.46 * avg_tuned) + (0.18 * best_posterior) + (0.14 * best_frontier) + (0.12 * best_local) + (0.10 * avg_effective_local), 2)",
+        "  data.frame(theme = levels_local, avg_fit = avg_fit, avg_tuned = avg_tuned, avg_posterior = avg_posterior, avg_effective_local = avg_effective_local, tuned_signal = tuned_signal, stringsAsFactors = FALSE)",
+        "}",
+        "theme_df <- build_theme_summary(df)",
+        "ord_theme <- theme_df[order(-theme_df$tuned_signal, -theme_df$avg_tuned, theme_df$theme), ]",
+        "sweep_paper_ids <- character(length(archetype_labels))",
+        "sweep_theme_names <- character(length(archetype_labels))",
+        "for (i in seq_along(archetype_labels)) {",
+        "  sweep_raw <- c(frontier = archetype_frontier[i], readiness = archetype_readiness[i], local = archetype_local[i], proof = archetype_proof[i], posterior = archetype_posterior[i], recency = archetype_recency[i])",
+        "  sweep_weights <- sweep_raw / sum(sweep_raw)",
+        "  df$sweep_tuned <- round((sweep_weights['frontier'] * df$frontier_signal) + (sweep_weights['readiness'] * df$readiness) + (sweep_weights['local'] * df$effective_local) + (sweep_weights['proof'] * df$proof_power) + (sweep_weights['posterior'] * df$posterior_opportunity) + (sweep_weights['recency'] * recency), 2)",
+        "  ord_sweep <- df[order(-df$sweep_tuned, -df$posterior_opportunity, df$ids), ]",
+        "  sweep_paper_ids[i] <- ord_sweep$ids[1]",
+        "  sweep_theme_df <- build_theme_summary(transform(df, tuned_score = df$sweep_tuned))",
+        "  ord_sweep_theme <- sweep_theme_df[order(-sweep_theme_df$tuned_signal, -sweep_theme_df$avg_tuned, sweep_theme_df$theme), ]",
+        "  sweep_theme_names[i] <- ord_sweep_theme$theme[1]",
+        "}",
+        "paper_levels <- sort(unique(sweep_paper_ids))",
+        "paper_counts <- sapply(paper_levels, function(level) sum(sweep_paper_ids == level))",
+        "consensus_paper_id <- paper_levels[order(-paper_counts, paper_levels)][1]",
+        "theme_name_levels <- sort(unique(sweep_theme_names))",
+        "theme_name_counts <- sapply(theme_name_levels, function(level) sum(sweep_theme_names == level))",
+        "consensus_theme_name <- theme_name_levels[order(-theme_name_counts, theme_name_levels)][1]",
+        "paste(c(as.character(nrow(df)), as.character(length(unique(df$ids))), as.character(min(df$years)), as.character(max(df$years)), ord_objective$ids[1:5], ord_tuned$ids[1], ord_theme$theme[1], consensus_paper_id, consensus_theme_name, compare_winner, sprintf('%.2f', mean(df$opportunity)), sprintf('%.2f', mean(df$objective_fit)), sprintf('%.2f', mean(df$effective_local)), as.integer(counts)), collapse='|')"
+      ].join("\n");
+    }
+
+    function normalizeWebRResult(value) {
+      if (typeof value === "string") return value;
+      if (Array.isArray(value)) return normalizeWebRResult(value[0]);
+      if (value && typeof value === "object") {
+        if (Object.prototype.hasOwnProperty.call(value, "values")) return normalizeWebRResult(value.values);
+        if (Object.prototype.hasOwnProperty.call(value, "value")) return normalizeWebRResult(value.value);
+      }
+      return String(value ?? "");
+    }
+
+    async function initWebR() {
+      if (validationState.webR) return validationState.webR;
+      if (validationState.loading) return null;
+      validationState.loading = true;
+      const status = document.getElementById("webrStatus");
+      const progressWrap = document.getElementById("progressWrap");
+      const progressText = document.getElementById("progressText");
+      const progressBar = document.getElementById("progressBar");
+      progressWrap.style.display = "block";
+      status.textContent = "Loading WebR";
+      status.className = "status-badge";
+      try {
+        progressText.textContent = "Importing WebR runtime...";
+        progressBar.value = 18;
+        const mod = await import("https://webr.r-wasm.org/v0.4.4/webr.mjs");
+        progressText.textContent = "Starting R environment...";
+        progressBar.value = 55;
+        validationState.webR = new mod.WebR();
+        await validationState.webR.init();
+        progressText.textContent = "WebR ready.";
+        progressBar.value = 100;
+        status.textContent = "WebR ready";
+        status.className = "status-badge ready";
+        return validationState.webR;
+      } catch (error) {
+        status.textContent = "WebR failed";
+        status.className = "status-badge error";
+        document.getElementById("validationResults").innerHTML =
+          `<strong>Validation could not start.</strong><br>${error.message || String(error)}`;
+        return null;
+      } finally {
+        validationState.loading = false;
+      }
+    }
+
+    function jsValidationSnapshot() {
+      const objectiveItems = currentObjectiveOrderedPapers();
+      const tuning = buildCustomObjectiveRanking();
+      const sweep = buildObjectiveSweepSnapshot();
+      const compareAId = document.getElementById("comparePaperA")?.value || tuning.papers[0].id;
+      const compareBId = document.getElementById("comparePaperB")?.value || tuning.papers[1]?.id || tuning.papers[0].id;
+      const compareLookup = Object.fromEntries(tuning.papers.map(item => [item.id, item]));
+      const compareWinner = (compareLookup[compareAId]?.tunedScore ?? 0) >= (compareLookup[compareBId]?.tunedScore ?? 0) ? compareAId : compareBId;
+      const themeLevels = uniqueValues(scoredPapers, "theme").sort();
+      const counts = themeLevels.map(theme => scoredPapers.filter(item => item.theme === theme).length);
+      return {
+        total: String(scoredPapers.length),
+        uniqueIds: String(new Set(scoredPapers.map(item => item.id)).size),
+        minYear: String(Math.min(...scoredPapers.map(item => item.year))),
+        maxYear: String(Math.max(...scoredPapers.map(item => item.year))),
+        topIds: objectiveItems.slice(0, 5).map(item => item.id),
+        tunedTopPaperId: tuning.papers[0].id,
+        tunedTopTheme: tuning.themes[0].theme,
+        sweepConsensusPaperId: sweep.consensusPaper.item.id,
+        sweepConsensusTheme: sweep.consensusTheme.item.theme,
+        comparatorWinnerId: compareWinner,
+        meanOpportunity: (scoredPapers.reduce((sum, item) => sum + item.opportunity, 0) / scoredPapers.length).toFixed(2),
+        meanObjectiveFit: (objectiveItems.reduce((sum, item) => sum + item.objectiveFit, 0) / objectiveItems.length).toFixed(2),
+        meanEffectiveLocal: (tuning.papers.reduce((sum, item) => sum + item.effectiveLocal, 0) / tuning.papers.length).toFixed(2),
+        themeCounts: counts,
+        themeLevels
+      };
+    }
+
+    async function runValidation() {
+      if (validationState.running) return;
+      validationState.running = true;
+      const progressWrap = document.getElementById("progressWrap");
+      const progressText = document.getElementById("progressText");
+      const progressBar = document.getElementById("progressBar");
+      const resultsEl = document.getElementById("validationResults");
+      const status = document.getElementById("webrStatus");
+      const runBtn = document.getElementById("runValidationBtn");
+      const script = generateRScript();
+      document.getElementById("scriptPreview").textContent = script;
+      runBtn.disabled = true;
+      progressWrap.style.display = "block";
+      progressText.textContent = "Preparing validation run...";
+      progressBar.value = 12;
+      try {
+        const webR = await initWebR();
+        if (!webR) return;
+        progressText.textContent = "Executing base R integrity checks...";
+        progressBar.value = 78;
+        const proxy = await webR.evalR(script);
+        let raw;
+        try {
+          raw = await proxy.toJs();
+        } finally {
+          if (proxy && typeof proxy.destroy === "function") {
+            try { await proxy.destroy(); } catch (error) {}
+          }
+        }
+        const parts = normalizeWebRResult(raw).trim().split("|");
+        const js = jsValidationSnapshot();
+        const rTotal = parts[0];
+        const rUnique = parts[1];
+        const rMin = parts[2];
+        const rMax = parts[3];
+        const rTop = parts.slice(4, 9);
+        const rTunedTopPaper = parts[9];
+        const rTunedTopTheme = parts[10];
+        const rSweepConsensusPaper = parts[11];
+        const rSweepConsensusTheme = parts[12];
+        const rComparatorWinner = parts[13];
+        const rMeanOpportunity = parts[14];
+        const rMeanObjectiveFit = parts[15];
+        const rMeanEffectiveLocal = parts[16];
+        const rCounts = parts.slice(17).map(value => Number(value));
+        const checks = [
+          {
+            label: "Row and unique ID count",
+            js: `${js.total} rows / ${js.uniqueIds} unique`,
+            r: `${rTotal} rows / ${rUnique} unique`,
+            pass: js.total === rTotal && js.uniqueIds === rUnique
+          },
+          {
+            label: "Year range",
+            js: `${js.minYear} to ${js.maxYear}`,
+            r: `${rMin} to ${rMax}`,
+            pass: js.minYear === rMin && js.maxYear === rMax
+          },
+          {
+            label: "Objective-ranked top IDs",
+            js: js.topIds.join(", "),
+            r: rTop.join(", "),
+            pass: js.topIds.join("|") === rTop.join("|")
+          },
+          {
+            label: "Tuned top paper",
+            js: js.tunedTopPaperId,
+            r: rTunedTopPaper,
+            pass: js.tunedTopPaperId === rTunedTopPaper
+          },
+          {
+            label: "Tuned top theme",
+            js: js.tunedTopTheme,
+            r: rTunedTopTheme,
+            pass: js.tunedTopTheme === rTunedTopTheme
+          },
+          {
+            label: "Sweep consensus paper",
+            js: js.sweepConsensusPaperId,
+            r: rSweepConsensusPaper,
+            pass: js.sweepConsensusPaperId === rSweepConsensusPaper
+          },
+          {
+            label: "Sweep consensus theme",
+            js: js.sweepConsensusTheme,
+            r: rSweepConsensusTheme,
+            pass: js.sweepConsensusTheme === rSweepConsensusTheme
+          },
+          {
+            label: "Comparator winner",
+            js: js.comparatorWinnerId,
+            r: rComparatorWinner,
+            pass: js.comparatorWinnerId === rComparatorWinner
+          },
+          {
+            label: "Mean opportunity",
+            js: js.meanOpportunity,
+            r: rMeanOpportunity,
+            pass: js.meanOpportunity === rMeanOpportunity
+          },
+          {
+            label: "Mean objective fit",
+            js: js.meanObjectiveFit,
+            r: rMeanObjectiveFit,
+            pass: js.meanObjectiveFit === rMeanObjectiveFit
+          },
+          {
+            label: "Mean effective local build",
+            js: js.meanEffectiveLocal,
+            r: rMeanEffectiveLocal,
+            pass: js.meanEffectiveLocal === rMeanEffectiveLocal
+          },
+          {
+            label: "Theme counts",
+            js: js.themeCounts.join(", "),
+            r: rCounts.join(", "),
+            pass: js.themeCounts.join("|") === rCounts.join("|")
+          }
+        ];
+        const passCount = checks.filter(check => check.pass).length;
+        progressText.textContent = "Validation complete.";
+        progressBar.value = 100;
+        status.textContent = passCount === checks.length ? "Validation passed" : "Validation mismatch";
+        status.className = "status-badge " + (passCount === checks.length ? "ready" : "error");
+        resultsEl.innerHTML = `
+          <div style="margin-bottom:0.8rem;"><strong>${passCount}/${checks.length} checks passed.</strong></div>
+          <div style="overflow:auto;">
+            <table>
+              <thead>
+                <tr><th>Check</th><th>JavaScript</th><th>WebR</th><th>Status</th></tr>
+              </thead>
+              <tbody>
+                ${checks.map(check => `
+                  <tr>
+                    <td>${check.label}</td>
+                    <td>${check.js}</td>
+                    <td>${check.r}</td>
+                    <td><strong style="color:${check.pass ? "var(--green)" : "var(--rose)"};">${check.pass ? "PASS" : "FAIL"}</strong></td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+          <div class="tiny" style="margin-top:0.7rem;">Theme order checked: ${js.themeLevels.join(", ")}</div>
+        `;
+      } catch (error) {
+        status.textContent = "Validation failed";
+        status.className = "status-badge error";
+        resultsEl.innerHTML = `<strong>Validation errored.</strong><br>${error.message || String(error)}`;
+      } finally {
+        validationState.running = false;
+        runBtn.disabled = false;
+      }
+    }
+
+    async function loadLiveMesh() {
+      const statusEl = document.getElementById("meshStatus");
+      const loadBtn = document.getElementById("loadMeshBtn");
+      const resetBtn = document.getElementById("resetMeshBtn");
+      if (typeof window.showDirectoryPicker !== "function") {
+        statusEl.textContent = "Live folder loading requires a Chromium browser that supports the File System Access API.";
+        return;
+      }
+      loadBtn.disabled = true;
+      resetBtn.disabled = true;
+      statusEl.textContent = "Waiting for a folder selection...";
+      try {
+        const handle = await window.showDirectoryPicker({ mode: "read" });
+        const snapshot = await buildLiveMeshSnapshot(handle, message => {
+          statusEl.textContent = message;
+        });
+        setMeshSnapshot(snapshot);
+        refreshBibliography();
+      } catch (error) {
+        if (error && error.name === "AbortError") {
+          statusEl.textContent = "Live folder scan cancelled. The previous mesh is still active.";
+        } else {
+          statusEl.textContent = `Live folder scan failed: ${error.message || String(error)}`;
+        }
+      } finally {
+        loadBtn.disabled = false;
+        resetBtn.disabled = false;
+      }
+    }
+
+    function openMeshImport() {
+      const input = document.getElementById("importMeshInput");
+      input.value = "";
+      if (typeof input.click === "function") input.click();
+    }
+
+    async function importMeshSnapshot(event) {
+      const file = event.target?.files?.[0];
+      if (!file) return;
+      try {
+        const raw = JSON.parse(await file.text());
+        if (!raw.source) raw.source = "Imported snapshot";
+        setMeshSnapshot(raw);
+        refreshBibliography();
+      } catch (error) {
+        document.getElementById("meshStatus").textContent = `Mesh import failed: ${error.message || String(error)}`;
+      } finally {
+        event.target.value = "";
+      }
+    }
+
+    function resetMeshToBundled() {
+      resetMeshSnapshot();
+      refreshBibliography();
+    }
+
+    async function copyScript() {
+      const script = generateRScript();
+      document.getElementById("scriptPreview").textContent = script;
+      try {
+        await navigator.clipboard.writeText(script);
+        document.getElementById("validationResults").innerHTML = "R script copied to clipboard.";
+      } catch (error) {
+        document.getElementById("validationResults").innerHTML = "Could not copy automatically. The script is visible in the preview panel.";
+      }
+    }
+
+    async function copyBrief() {
+      const brief = generateReadingBrief();
+      document.getElementById("briefPreview").textContent = brief;
+      try {
+        await navigator.clipboard.writeText(brief);
+        document.getElementById("briefStatus").textContent = "Reading brief copied to clipboard.";
+      } catch (error) {
+        document.getElementById("briefStatus").textContent = "Could not copy automatically. The brief is visible in the preview panel.";
+      }
+    }
+
+    function downloadBrief() {
+      const brief = generateReadingBrief();
+      document.getElementById("briefPreview").textContent = brief;
+      downloadTextFile("meta-frontier-reading-brief.md", brief);
+      document.getElementById("briefStatus").textContent = "Reading brief download triggered.";
+    }
+
+    document.getElementById("scriptPreview").textContent = generateRScript();
+    document.getElementById("loadMeshBtn").addEventListener("click", loadLiveMesh);
+    document.getElementById("exportMeshBtn").addEventListener("click", exportMeshSnapshot);
+    document.getElementById("importMeshBtn").addEventListener("click", openMeshImport);
+    document.getElementById("importMeshInput").addEventListener("change", importMeshSnapshot);
+    document.getElementById("resetMeshBtn").addEventListener("click", resetMeshToBundled);
+    document.getElementById("runValidationBtn").addEventListener("click", runValidation);
+    document.getElementById("copyScriptBtn").addEventListener("click", copyScript);
+    document.getElementById("copyBriefBtn").addEventListener("click", copyBrief);
+    document.getElementById("downloadBriefBtn").addEventListener("click", downloadBrief);
+  </script>
+</body>
+</html>
